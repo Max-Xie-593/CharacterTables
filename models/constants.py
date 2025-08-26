@@ -75,6 +75,7 @@ PANDAS_PARSER_INFO : Final[Dict] = {
 FGO_REGEX_CARD_HITS_DISTRIBUTION: Match[Text] = r'cardDetails\.(?:arts|quick|buster|extra)\.hitsDistribution'
 
 ZZZ_REGEX_TEAM_CONDITION: Match[Text] = r'passive.levels\.\d{4}(?:055|507|514)\.descriptions'
+ZZZ_REGEX_SIMPLE_TEAM_CONDITION: Match[Text] = 'passive.levels.7.descriptions'
 
 ZZZ_REGEX_OR: Match[Text] = r',? or |,'
 
@@ -191,6 +192,8 @@ ZZZ_INCOMPLETE_CHARACTER_IDS: Final[List[int]] = [
     1301, # Orphie & Magus
     1441, # Komano Manato
     1461, # Seed
+    1051, # Yidhari
+    1451, # Lucia
 ]
 
 FGO_INCOMPLETE_CHARACTER_IDS: Final[List[int]] = [

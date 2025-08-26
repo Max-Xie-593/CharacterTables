@@ -34,6 +34,7 @@ from .constants import (
     SUPPORT_TEXT,
     FGO_REGEX_CARD_HITS_DISTRIBUTION,
     ZZZ_REGEX_TEAM_CONDITION,
+    ZZZ_REGEX_SIMPLE_TEAM_CONDITION,
     ZZZ_REGEX_OR,
     GI_STATS_COLUMNS,
     ZZZ_STATS_COLUMNS,
@@ -167,10 +168,10 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
         """
         return os.path.commonprefix(path_lists)
 
-    # subset_data = dataFrame.filter(regex='passive.levels.7.descriptions')
-    subset_data = dataFrame.filter(regex=ZZZ_REGEX_TEAM_CONDITION)
+    subset_data = dataFrame.filter(regex=ZZZ_REGEX_SIMPLE_TEAM_CONDITION)
+    # subset_data = dataFrame.filter(regex=ZZZ_REGEX_TEAM_CONDITION)
 
-    subset_data = subset_data.ffill(axis=1)
+    # subset_data = subset_data.ffill(axis=1)
     subset_data = (
         subset_data.iloc[:,-1]
         .str[1]
