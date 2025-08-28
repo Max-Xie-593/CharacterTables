@@ -76,7 +76,7 @@ FGO_REGEX_CARD_HITS_DISTRIBUTION: Match[Text] = r'cardDetails\.(?:arts|quick|bus
 
 ZZZ_REGEX_TEAM_CONDITION: Match[Text] = r'passive.levels\.\d{4}(?:055|507|514)\.descriptions'
 ZZZ_REGEX_SIMPLE_TEAM_CONDITION: Match[Text] = 'passive.levels.7.descriptions'
-
+ZZZ_REGEX_TEAM_CONDITION_TYPES: Match[Text] = r'(Attack|Stun|Support|Rupture|Defense|Anomaly|Defensive Assist|Attribute|Faction)'
 ZZZ_REGEX_OR: Match[Text] = r',? or |,'
 
 ZZZ_TEAM_PREFIXES: Final[List[Text]] = ["is an", "is a", "shares the same", "can activate"]
@@ -191,7 +191,7 @@ FGO_COLUMNS: Final[List[Text]] = [
 ZZZ_INCOMPLETE_CHARACTER_IDS: Final[List[int]] = [
     1301, # Orphie & Magus
     1441, # Komano Manato
-    1461, # Seed
+    # 1461, # Seed
     1051, # Yidhari
     1451, # Lucia
 ]

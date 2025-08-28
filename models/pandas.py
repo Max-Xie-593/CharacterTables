@@ -40,6 +40,7 @@ from .constants import (
     ZZZ_STATS_COLUMNS,
     FGO_NP_COLUMNS,
     GI_SPECIAL_ENUMS_COLUMNS,
+    ZZZ_REGEX_TEAM_CONDITION_TYPES
 )
 from hakushin.enums import ZZZSpecialty
 from multipledispatch import dispatch
@@ -179,18 +180,31 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
             lambda x: x.split(":")[0]
         )
     )
+    # NEW WAY TO PARSE CONDITION TEXT
     subset_data = pd.DataFrame(
         subset_data.apply(
-            lambda x: re.split(
-                ZZZ_REGEX_OR,
-                x.removeprefix(
-                    find_common_prefix(
-                        subset_data.to_list()
-                    )
+            lambda conditions: re.findall(
+                ZZZ_REGEX_TEAM_CONDITION_TYPES,
+                " ".join(
+                    condition.capitalize()
+                    for condition in conditions.split()
                 )
             )
         ).to_list()
     )
+    # OLD WAY TO PARSE CONDITION TEXT
+    # subset_data = pd.DataFrame(
+    #     subset_data.apply(
+    #         lambda x: re.split(
+    #             ZZZ_REGEX_OR,
+    #             x.removeprefix(
+    #                 find_common_prefix(
+    #                     subset_data.to_list()
+    #                 )
+    #             )
+    #         )
+    #     ).to_list()
+    # )
     for idx, col in enumerate(subset_data):
         dataFrame[
             f"team_condition_{idx+1}"
