@@ -1,4 +1,5 @@
-from typing import Final, Text, Dict, List, Set
+from typing import Final
+from collections.abc import Sequence, Mapping, Set
 from .enums import (
     GameInitials,
     DataFolders,
@@ -29,28 +30,28 @@ __all__ = (
 )
 
 # TEXT RELATED CONSTANTS
-CHARACTERS_TEXT: Final[Text] = "characters"
+CHARACTERS_TEXT: Final[str] = "characters"
 
-CHARACTER_TEXT: Final[Text] = "character" 
+CHARACTER_TEXT: Final[str] = "character" 
 
-NONE_TEXT: Final[Text] = "None" 
+NONE_TEXT: Final[str] = "None" 
 
-SELF_TEXT: Final[Text] = "Self" 
+SELF_TEXT: Final[str] = "Self" 
 
-SUPPORT_TEXT: Final[Text] = "Support" 
+SUPPORT_TEXT: Final[str] = "Support" 
 
 # SYSTEM RELATED CONSTANTS
-SUB_FOLDERS: Final[List[Text]] = [DataFolders.RAW, DataFolders.CLEANED]
+SUB_FOLDERS: Final[Sequence[str]] = [DataFolders.RAW, DataFolders.CLEANED]
 
-GAME_CHOICES : Final[List[Text]] = [game.value for game in GameInitials]
+GAME_CHOICES : Final[Sequence[str]] = [game.value for game in GameInitials]
 
-GI_CHARACTER_CURVE: Final[Text] = "gi_character_curve.json"
+GI_CHARACTER_CURVE: Final[str] = "gi_character_curve.json"
 
-CHARACTERS_JSON: Final[Text] = f"{CHARACTERS_TEXT}.json"
+CHARACTERS_JSON: Final[str] = f"{CHARACTERS_TEXT}.json"
 
-CHARACTERS_CLEANED: Final[Text] = f"{CHARACTERS_TEXT}.csv"
+CHARACTERS_CLEANED: Final[str] = f"{CHARACTERS_TEXT}.csv"
 
-GAME_PARAM_INFO: Final[Dict] =  {
+GAME_PARAM_INFO: Final[Mapping] =  {
     ArgumentParserKwargs.NAME: "game",
     ArgumentParserKwargs.OTHER_PARAMS: {
         ArgumentParserKwargs.TYPE: str,
@@ -59,27 +60,27 @@ GAME_PARAM_INFO: Final[Dict] =  {
     },
 },
 
-CHARACTERS_PARSER_INFO : Final[Dict] = {
+CHARACTERS_PARSER_INFO : Final[Mapping] = {
     ArgumentParserKwargs.NAME: "characters",
     ArgumentParserKwargs.DESCRIPTION: "subparser for extracting character data from a specified game",
     ArgumentParserKwargs.HELP: "extract all character information from a specified game into an json file.",
 }
 
-PANDAS_PARSER_INFO : Final[Dict] = {
+PANDAS_PARSER_INFO : Final[Mapping] = {
     ArgumentParserKwargs.NAME: "pandas",
     ArgumentParserKwargs.DESCRIPTION: "subparser for extracting character json data to a csv file",
     ArgumentParserKwargs.HELP: "convert all character json data into an csv file.",
 }
 
 # PANDAS RELATED CONSTANTS
-FGO_REGEX_CARD_HITS_DISTRIBUTION: Match[Text] = r'cardDetails\.(?:arts|quick|buster|extra)\.hitsDistribution'
+FGO_REGEX_CARD_HITS_DISTRIBUTION: Match[str] = r'cardDetails\.(?:arts|quick|buster|extra)\.hitsDistribution'
 
-ZZZ_REGEX_TEAM_CONDITION: Match[Text] = r'passive.levels\.\d{4}(?:055|507|514)\.descriptions'
-ZZZ_REGEX_SIMPLE_TEAM_CONDITION: Match[Text] = 'passive.levels.7.descriptions'
-ZZZ_REGEX_TEAM_CONDITION_TYPES: Match[Text] = r'(Attack|Stun|Support|Rupture|Defense|Anomaly|Defensive Assist|Attribute|Faction)'
-ZZZ_REGEX_OR: Match[Text] = r',? or |,'
+ZZZ_REGEX_TEAM_CONDITION: Match[str] = r'passive.levels\.\d{4}(?:055|507|514)\.descriptions'
+ZZZ_REGEX_SIMPLE_TEAM_CONDITION: Match[str] = 'passive.levels.7.descriptions'
+ZZZ_REGEX_TEAM_CONDITION_TYPES: Match[str] = r'(Attack|Stun|Support|Rupture|Defense|Anomaly|Defensive Assist|[Aa]ttribute|Faction)'
+ZZZ_REGEX_OR: Match[str] = r',? or |,'
 
-ZZZ_TEAM_PREFIXES: Final[List[Text]] = ["is an", "is a", "shares the same", "can activate"]
+ZZZ_TEAM_PREFIXES: Final[Sequence[str]] = ["is an", "is a", "shares the same", "can activate"]
 
 FGO_ENEMY_TARGET_TYPE: Final[Set[NiceFuncTargetType]] = set([
     NiceFuncTargetType.enemy,
@@ -94,7 +95,7 @@ FGO_ENEMY_TARGET_TYPE: Final[Set[NiceFuncTargetType]] = set([
     NiceFuncTargetType.enemyOneNoTargetNoAction,
 ])
 
-ZZZ_COLUMNS: Final[List[Text]] = [
+ZZZ_COLUMNS: Final[Sequence[str]] = [
     CharacterTableColumnNames.ID, 
     CharacterTableColumnNames.NAME, 
     ZZZColumnNames.CODENAME, 
@@ -119,7 +120,7 @@ ZZZ_COLUMNS: Final[List[Text]] = [
     ZZZColumnNames.TEAMCONDITION3, 
 ]
 
-GI_COLUMNS: Final[List[Text]] = [
+GI_COLUMNS: Final[Sequence[str]] = [
     CharacterTableColumnNames.ID, 
     CharacterTableColumnNames.NAME,
     GIColumnNames.JP_VA,
@@ -141,7 +142,7 @@ GI_COLUMNS: Final[List[Text]] = [
     GIColumnNames.ULTIMATECOST,
 ]
 
-FGO_COLUMNS: Final[List[Text]] = [
+FGO_COLUMNS: Final[Sequence[str]] = [
     CharacterTableColumnNames.ID, 
     FGOColumnNames.COLLECTION_NUM,
     CharacterTableColumnNames.NAME, 
@@ -188,7 +189,7 @@ FGO_COLUMNS: Final[List[Text]] = [
     FGOColumnNames.NPTAGS,
 ]
 
-ZZZ_INCOMPLETE_CHARACTER_IDS: Final[List[int]] = [
+ZZZ_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
     1301, # Orphie & Magus
     1441, # Komano Manato
     # 1461, # Seed
@@ -196,7 +197,7 @@ ZZZ_INCOMPLETE_CHARACTER_IDS: Final[List[int]] = [
     1451, # Lucia
 ]
 
-FGO_INCOMPLETE_CHARACTER_IDS: Final[List[int]] = [
+FGO_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
     9935530, # (152) Solomon (Caster) 
     1700100, # (83) Solomon ("Grand Caster") 
     9943610, # (333) Beast IV 
@@ -206,7 +207,7 @@ FGO_INCOMPLETE_CHARACTER_IDS: Final[List[int]] = [
     9935400, # (149) Tiamat 
 ]
 
-GI_STATS_COLUMNS: Final[Dict] = {
+GI_STATS_COLUMNS: Final[Mapping] = {
     "new_cols": [
         CharacterTableColumnNames.HPMAX,
         CharacterTableColumnNames.ATKMAX,
@@ -223,13 +224,13 @@ GI_STATS_COLUMNS: Final[Dict] = {
     ],
 }
 
-GI_SPECIAL_ENUMS_COLUMNS: Final[Dict] = {
+GI_SPECIAL_ENUMS_COLUMNS: Final[Mapping] = {
     GIColumnNames.ELEMENT: Element,
     GIColumnNames.WEAPONTYPE: WeaponType,
     GIColumnNames.ASCENSIONSTAT: SpecialStat
 }
 
-ZZZ_STATS_COLUMNS: Final[Dict] = {
+ZZZ_STATS_COLUMNS: Final[Mapping] = {
     CharacterTableColumnNames.ATKMAX: [
         ZZZColumnNames.ASCENSIONATTACK,
         ZZZColumnNames.ATTACK_STAT,
@@ -250,7 +251,7 @@ ZZZ_STATS_COLUMNS: Final[Dict] = {
     ],
 }
 
-FGO_NP_COLUMNS: Final[Dict] ={
+FGO_NP_COLUMNS: Final[Mapping] ={
     FGOColumnNames.NPCARDTYPE: lambda x: x.str[FGOColumnNames.CARD],
     FGOColumnNames.NPRANKS: lambda x: x.str[FGOColumnNames.NPRANKS],
     FGOColumnNames.NPTYPES: lambda x: x.str[FGOColumnNames.NPTYPES],

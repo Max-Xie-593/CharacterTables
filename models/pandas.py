@@ -5,8 +5,9 @@ import traceback, logging, os, re, calendar, itertools
 
 from deep_translator import GoogleTranslator
 
-from typing import Any, Optional, Text, List, Dict, Set, Callable
+from typing import Any, Optional
 from collections import defaultdict
+from collections.abc import Callable, Sequence, Mapping, Set
 from datetime import datetime
 
 from ambr.enums import SpecialStat
@@ -84,14 +85,14 @@ def remove_incomplete_data(dataFrame: pd.DataFrame, game: GameInitials) -> None:
     Args:
         dataFrame (pd.DataFrame): Dataframe Object containing character information
     """
-    def retrieve_incomplete_ids(game: GameInitials) -> List[int]:
+    def retrieve_incomplete_ids(game: GameInitials) -> Sequence[int]:
         """function to remove character information with incomplete data
 
         Args:
             game (GameInitials): game the character data is from
 
         Returns:
-            List[int]: an list of character IDs with incomplete data
+            Sequence[int]: an list of character IDs with incomplete data
         """
         match game:
             case GameInitials.ZZZ:
@@ -121,24 +122,24 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
         dataFrame (pd.DataFrame): Dataframe Object containing ZZZ character information
     """
 
-    def interpret_team_condition(condition: Text) -> Text:
+    def interpret_team_condition(condition: str) -> str:
         """helper function to parse the team condition text
 
         Args:
-            condition (Text): text containing the team conditions for ZZZ characters
+            condition (str): text containing the team conditions for ZZZ characters
 
         Returns:
-            Text: formatted text of the character's team condition
+            str: formatted text of the character's team condition
         """
 
-        def format_team_condition(condition_text: Text) -> Text:
+        def format_team_condition(condition_text: str) -> str:
             """helper function to format the team condition text
 
             Args:
-                condition_text (Text): formatted team condition text
+                condition_text (str): formatted team condition text
 
             Returns:
-                Text: formatted text of the character's team condition
+                str: formatted text of the character's team condition
             """
             character_types = set(ZZZSpecialty.__members__)
             condition_list = condition_text.split()
@@ -158,14 +159,14 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
                 )
         return format_team_condition(condition)
 
-    def find_common_prefix(path_lists: List[Text]) -> Text:
+    def find_common_prefix(path_lists: Sequence[str]) -> str:
         """helper function to find common prefix from the team condition text
 
         Args:
-            path_lists (List[Text]): List of team condition text from ZZZ characters
+            path_lists (Sequence[str]): Sequence of team condition text from ZZZ characters
 
         Returns:
-            Text: common prefix from the team condition text
+            str: common prefix from the team condition text
         """
         return os.path.commonprefix(path_lists)
 
@@ -185,10 +186,7 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
         subset_data.apply(
             lambda conditions: re.findall(
                 ZZZ_REGEX_TEAM_CONDITION_TYPES,
-                " ".join(
-                    condition.capitalize()
-                    for condition in conditions.split()
-                )
+                conditions
             )
         ).to_list()
     )
@@ -256,7 +254,7 @@ def extract_max_hp_atk_def(dataFrame: pd.DataFrame) -> None:
         base_stat: pd.Series,
         growth_stat: pd.Series,
         ascension_stat: pd.Series,
-        ascension_key: Text,
+        ascension_key: str,
     ) -> pd.Series:
         """helper function to calculate the max stats of ZZZ characters
 
@@ -264,7 +262,7 @@ def extract_max_hp_atk_def(dataFrame: pd.DataFrame) -> None:
             base_stat (pd.Series): stats of ZZZ characters at level 1
             growth_stat (pd.Series): stat gains of ZZZ characters upon leveling up
             ascension_stat (pd.Series): stat gains of ZZZ characters upon ascending
-            ascension_key (Text): stat type of ZZZ characters ascension stat
+            ascension_key (str): stat type of ZZZ characters ascension stat
 
         Returns:
             pd.Series: column data of ZZZ character stats at max level (60)
@@ -361,33 +359,33 @@ def convert_jp_va(dataFrame: pd.DataFrame) -> None:
         lambda x: translator.translate(x)
     )
 
-@dispatch(pd.DataFrame,dict)
-def extract_max_hp_atk_def(dataFrame: pd.DataFrame, curve_data: Dict) -> None:
+@dispatch(pd.DataFrame,Mapping)
+def extract_max_hp_atk_def(dataFrame: pd.DataFrame, curve_data: Mapping) -> None:
     """function to extract the max stats of GI characters
 
     Args:
         dataFrame (pd.DataFrame): DataFrame Object containing GI character information
-        curve_data (Dict): growth curve data of GI characters
+        curve_data (Mapping): growth curve data of GI characters
     """
 
     def calculate_upgrade_stat_values(
         base_stats: pd.Series,
         promotion_stats: pd.Series,
-        curve_data: Dict[Text, Dict[Text, Dict[Text, float]]],
+        curve_data: Mapping[str, Mapping[str, Mapping[str, float]]],
         level: int,
         ascended: bool,
-    ) -> dict[Text, float]:
+    ) -> Mapping[str, float]:
         """helper function to calculate the max stats of GI characters. Copied from ambr-py due to incompatible typing.
 
         Args:
             base_stats (pd.Series): column data of GI character's stats at level 1
             promotion_stats (pd.Series): column data of GI character's stat gains on ascension
-            curve_data (Dict[Text, Dict[Text, Dict[Text, float]]]): growth curve data of GI characters
+            curve_data (Mapping[str, Mapping[str, Mapping[str, float]]]): growth curve data of GI characters
             level (int): level to ascend to
             ascended (bool): is the character ascended
 
         Returns:
-            dict[str, float]: dictionary of calculated character stats for GI
+            Mapping[str, float]: dictionary of calculated character stats for GI
         """
         result: defaultdict[str, float] = defaultdict(float)
 
@@ -427,12 +425,12 @@ def extract_max_hp_atk_def(dataFrame: pd.DataFrame, curve_data: Dict) -> None:
 
         return result
     
-    def extract_max_stats(dataFrame: pd.DataFrame, curve_data: Dict) -> pd.DataFrame:
+    def extract_max_stats(dataFrame: pd.DataFrame, curve_data: Mapping) -> pd.DataFrame:
         """helper function to extract max stats of GI characters
 
         Args:
             dataFrame (pd.DataFrame): DataFrame Object containing GI characters information
-            curve_data (Dict): growth curve data of GI characters
+            curve_data (Mapping): growth curve data of GI characters
 
         Returns:
             pd.DataFrame: characters stats converted into a DataFrame Object
@@ -540,22 +538,22 @@ def extract_servant_growth_curve(dataFrame: pd.DataFrame) -> None:
     )
 
 
-def clean_up_servant_buff(buffText: Text) -> Text:
+def clean_up_servant_buff(buffText: str) -> str:
     """function to clean up text of special characters
 
     Args:
-        buffText (Text): text of the buff
+        buffText (str): text of the buff
 
     Returns:
-        Text: cleaned up buff text
+        str: cleaned up buff text
     """
     return re.sub(r'\n'," ",buffText)
 
-def determine_servant_buff_exists(buffText: Text) -> bool:
+def determine_servant_buff_exists(buffText: str) -> bool:
     """function to check the text is not "None"
 
     Args:
-        buffText (Text): text of the buff
+        buffText (str): text of the buff
 
     Returns:
         bool: text is not "None"
@@ -569,11 +567,11 @@ def determine_player_skill_buffs(**kwargs) -> bool:
         bool: is the buff a player buff
     """
 
-    def determine_applyTarget_player(targetTeam: Text) -> bool:
+    def determine_applyTarget_player(targetTeam: str) -> bool:
         """helper function to check if the buff involves the player
 
         Args:
-            targetTeam (Text): Target team of buff
+            targetTeam (str): Target team of buff
 
         Returns:
             bool: buff of target involves the player
@@ -598,12 +596,12 @@ def determine_player_np_buffs(**kwargs) -> bool:
         bool: is the np buff a player buff
     """
 
-    def determine_enemy_servant(targetType: Text, targetTeam: Text) -> bool:
+    def determine_enemy_servant(targetType: str, targetTeam: str) -> bool:
         """helper function to check if the np buff involves the player
 
         Args:
-            targetType (Text): Target type of buff
-            targetTeam (Text): Target team of buff
+            targetType (str): Target type of buff
+            targetTeam (str): Target team of buff
 
         Returns:
             bool: np buff of target involves the player
@@ -618,11 +616,11 @@ def determine_player_np_buffs(**kwargs) -> bool:
             )
         )
     
-    def determine_NP_applyTarget_player(targetTeam: Text) -> bool:
+    def determine_NP_applyTarget_player(targetTeam: str) -> bool:
         """helper function to check if the np buff involves the player
 
         Args:
-            targetTeam (Text): Target team of buff
+            targetTeam (str): Target team of buff
 
         Returns:
             bool: np buff of target involves the player
@@ -640,25 +638,25 @@ def determine_player_np_buffs(**kwargs) -> bool:
         determine_servant_buff_exists(kwargs[FGOColumnNames.FUNCPOPUPTEXT])
     )
 
-def aggregate_functions(data: List[Dict], bool_function: Callable[...,bool]) -> Set[Optional[List[Text]]]:
+def aggregate_functions(data: Sequence[Mapping], bool_function: Callable[...,bool]) -> Set[Optional[Sequence[str]]]:
     """function to combine all buff functions of a skill or NP into one list 
 
     Args:
-        data (List[Dict]): List of functions
+        data (Sequence[Mapping]): Sequence of functions
         bool_function (Callable[...,bool]): boolean function to check
 
     Returns:
-        Set[Optional[List[Text]]]: all buff function of a skill or NP into one list
+        Set[Optional[Sequence[str]]]: all buff function of a skill or NP into one list
     """
 
-    def determine_targetType_self_or_support(targetType: Text) -> Text:
+    def determine_targetType_self_or_support(targetType: str) -> str:
         """helper function to determine if the buff applys to self or others
 
         Args:
-            targetType (Text): Target type of buff
+            targetType (str): Target type of buff
 
         Returns:
-            Text: "Self" if target type is self else "Support"
+            str: "Self" if target type is self else "Support"
         """
         return (
             SELF_TEXT 

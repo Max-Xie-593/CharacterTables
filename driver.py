@@ -1,5 +1,5 @@
 from argparse import ArgumentParser, RawTextHelpFormatter, RawDescriptionHelpFormatter, Namespace
-from typing import Generator, Dict, Callable, Tuple
+from collections.abc import Mapping, Generator, Callable
 from models import *
 
 def construct_main_parser() -> ArgumentParser:
@@ -10,8 +10,8 @@ def construct_main_parser() -> ArgumentParser:
     """
 
     def retrieve_subparser_information() -> Generator[
-        Tuple[
-            Dict,
+        tuple[
+            Mapping,
             Callable[
                 [
                     Namespace
@@ -25,7 +25,7 @@ def construct_main_parser() -> ArgumentParser:
         """Generator to output tuples of information for creating subparsers
 
         Yields:
-            Generator[Tuple[Dict,Callable[[Namespace],None]],None,None]: Tuple containing a dict information regarding parser data and functions for the parser to run
+            Generator[tuple[Mapping,Callable[[Namespace],None]],None,None]: Tuple containing a dict information regarding parser data and functions for the parser to run
         """
         yield (CHARACTERS_PARSER_INFO, print_character_data)
         yield (PANDAS_PARSER_INFO, convert_character_data)

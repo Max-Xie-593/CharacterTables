@@ -1,6 +1,7 @@
 from argparse import ArgumentParser, Namespace
-from typing import List, Dict, Any, Text, Optional
+from typing import Any, Optional
 from itertools import product
+from collections.abc import Sequence, Mapping
 import json, os, asyncio
 
 from .constants import (
@@ -43,14 +44,14 @@ def check_data_directory() -> None:
 def write_json_to_file(
         json_info: Any,
         game: GameInitials,
-        output_file: Text
+        output_file: str
     ) -> None:
     """output the json information into a file
 
     Args:
         json_info (Any): data from the game
         game (GameInitials): game the json information is for
-        output_file (Text): file name to output to
+        output_file (str): file name to output to
     """
     check_data_directory()
     with open(
@@ -70,13 +71,13 @@ def write_json_to_file(
 
 def read_json_to_variable(
         game: GameInitials,
-        input_file: Text
+        input_file: str
     ) -> Optional[Any]:
     """read the file and store to a variable
 
     Args:
         game (GameInitials): game the json information is for
-        input_file (Text): file name to read from
+        input_file (str): file name to read from
 
     Returns:
         Optional[Any]: either a variable containing the file contents or nothing
@@ -97,25 +98,25 @@ def read_json_to_variable(
 
 def add_parser_info(
     parser: ArgumentParser,
-    arguments: List[Dict],
-    defaults: Dict
+    arguments: Sequence[Mapping],
+    defaults: Mapping
 ) -> None:
     """function to add arguments and defaults to the parser
 
     Args:
         parser (ArgumentParser): parser to add arugments and defaults to
-        arguments (List[Dict]): dict containing arugment information
-        defaults (Dict): dict containing defaults in parser format
+        arguments (Sequence[Mapping]): dict containing arugment information
+        defaults (Mapping): dict containing defaults in parser format
     """
     def add_arguments_to_parser(
             parser: ArgumentParser,
-            arguments: List[Dict]
+            arguments: Sequence[Mapping]
         ) -> None:
         """helper function to add arguments to the parser
 
         Args:
             parser (ArgumentParser): parser to add arugments and defaults to
-            arguments (List[Dict]): dict containing arugment information
+            arguments (Sequence[Mapping]): dict containing arugment information
         """
         for parameter_info in arguments:
             parser.add_argument(
@@ -129,13 +130,13 @@ def add_parser_info(
 
     def add_defaults_to_parser(
             parser: ArgumentParser,
-            defaults: Dict
+            defaults: Mapping
         ) -> None:
         """helper function to add defaults to the parser
 
         Args:
             parser (ArgumentParser): parser to add arugments and defaults to
-            defaults (Dict): dict containing arugment information
+            defaults (Mapping): dict containing arugment information
         """
         parser.set_defaults(**defaults)
 
@@ -226,14 +227,14 @@ def extract_character_data(
 async def extract_gi_character_curve(
         client: ClientAPI,
         game: GameInitials,
-        output_file: Text
+        output_file: str
     ) -> None:
     """function to extract the Genshin Impact character curve to calculate max stats
 
     Args:
         client (ClientAPI): API Client used to retrieve data from
         game (GameInitials): game to retrieve data from
-        output_file (Text): file name to output to
+        output_file (str): file name to output to
     """
     async with client as api:
         write_json_to_file(
@@ -245,14 +246,14 @@ async def extract_gi_character_curve(
 async def extract_character(
         client: ClientAPI,
         game: GameInitials,
-        output_file: Text
+        output_file: str
     ) -> None:
     """function to extract character information from websites and output to a file
 
     Args:
         client (ClientAPI): API Client used to retrieve data from
         game (GameInitials): game to retrieve data from
-        output_file (Text): file name to output to
+        output_file (str): file name to output to
     """
     async with client as api:
         write_json_to_file(
