@@ -190,7 +190,7 @@ FGO_COLUMNS: Final[Sequence[str]] = [
 ]
 
 ZZZ_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
-    1301, # Orphie & Magus
+    # 1301, # Orphie & Magus
     1441, # Komano Manato
     # 1461, # Seed
     1051, # Yidhari
