@@ -190,19 +190,6 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
             )
         ).to_list()
     )
-    # OLD WAY TO PARSE CONDITION TEXT
-    # subset_data = pd.DataFrame(
-    #     subset_data.apply(
-    #         lambda x: re.split(
-    #             ZZZ_REGEX_OR,
-    #             x.removeprefix(
-    #                 find_common_prefix(
-    #                     subset_data.to_list()
-    #                 )
-    #             )
-    #         )
-    #     ).to_list()
-    # )
     for idx, col in enumerate(subset_data):
         dataFrame[
             f"team_condition_{idx+1}"
