@@ -180,7 +180,7 @@ class FGOColumnNames(StrEnum):
     ARTS_HITCOUNT = "artsHitCount" # self_created
     BUSTER_HITCOUNT = "busterHitCount" # self_created
     QUICK_HITCOUNT = "quickHitCount" # self_created
-    EXTRA_HITCOUNT = "extraHitCount" # self_created
+    EXTRA_HITCOUNT = "addattackHitCount" # self_created
     SKILLTAGS = "skillTags" # self_created
     NPCARDTYPE = "npCards" # self_created
     NPTARGETEFFECT = "targetType" # self_created

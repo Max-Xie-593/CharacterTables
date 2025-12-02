@@ -12,7 +12,7 @@ from datetime import datetime
 
 from ambr.enums import SpecialStat
 from fgo_api_types.enums import FuncApplyTarget
-from fgo_api_types.gameenums import NiceFuncTargetType
+from fgo_api_types.gameenums import NiceFuncTargetType, CardType, NiceCardType
 from .enums import (
     GameInitials, 
     FGOGrowthCurve, 
@@ -26,7 +26,7 @@ from .constants import (
     ZZZ_COLUMNS, 
     FGO_COLUMNS, 
     ZZZ_TEAM_PREFIXES, 
-    ZZZ_INCOMPLETE_CHARACTER_IDS, 
+    ZZZ_INCOMPLETE_CHARACTER_IDS,
     FGO_INCOMPLETE_CHARACTER_IDS, 
     FGO_ENEMY_TARGET_TYPE, 
     CHARACTER_TEXT, 
@@ -479,14 +479,14 @@ def extract_servant_card_deck_details(dataFrame: pd.DataFrame) -> None:
     """
     dataFrame[FGOColumnNames.CARDDECK] = dataFrame[FGOColumnNames.CARDS].apply(
         lambda x: "".join(
-            card[0].upper() 
+            CardType(int(card)).name[0]
             for card in x
         )
     )
     subset_data = dataFrame.filter(regex=FGO_REGEX_CARD_HITS_DISTRIBUTION)
     for columnName in subset_data.columns:
         dataFrame[
-            f"{columnName.split(".")[1]}HitCount"
+            f"{NiceCardType(columnName.split(".")[1]).name}HitCount"
         ] = subset_data[columnName].apply(lambda x: len(x))
 
 def extract_servant_growth_curve(dataFrame: pd.DataFrame) -> None:

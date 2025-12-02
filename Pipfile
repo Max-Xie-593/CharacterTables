@@ -5,11 +5,11 @@ name = "pypi"
 
 [packages]
 hakushin-py = "*"
-ambr-py = "*"
 pandas = "*"
 multipledispatch = "*"
 deep-translator = "*"
-atlasacademy-py = {git = "https://github.com/Max-Xie-593/FGOAtlasAcademyAPI.git"}
+atlasacademy-py = {editable = true, git = "https://github.com/Max-Xie-593/FGOAtlasAcademyAPI.git"}
+ambr-py = "*"
 
 [dev-packages]
 

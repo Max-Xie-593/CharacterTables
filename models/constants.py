@@ -73,7 +73,8 @@ PANDAS_PARSER_INFO : Final[Mapping] = {
 }
 
 # PANDAS RELATED CONSTANTS
-FGO_REGEX_CARD_HITS_DISTRIBUTION: Match[str] = r'cardDetails\.(?:arts|quick|buster|extra)\.hitsDistribution'
+# FGO_REGEX_CARD_HITS_DISTRIBUTION: Match[str] = r'cardDetails\.(?:arts|quick|buster|extra)\.hitsDistribution'
+FGO_REGEX_CARD_HITS_DISTRIBUTION: Match[str] = r'cardDetails\.(?:1|2|3|4)\.hitsDistribution'
 
 ZZZ_REGEX_TEAM_CONDITION: Match[str] = r'passive.levels\.\d{4}(?:055|507|514)\.descriptions'
 ZZZ_REGEX_SIMPLE_TEAM_CONDITION: Match[str] = 'passive.levels.7.descriptions'
@@ -190,8 +191,8 @@ FGO_COLUMNS: Final[Sequence[str]] = [
 ]
 
 ZZZ_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
-    1471, # Banyue
-    1481, # Dialyn
+    1431, # Ye Shunguang
+    1341, # Zhao
 ]
 
 FGO_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
