@@ -159,17 +159,6 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
                 )
         return format_team_condition(condition)
 
-    def find_common_prefix(path_lists: Sequence[str]) -> str:
-        """helper function to find common prefix from the team condition text
-
-        Args:
-            path_lists (Sequence[str]): Sequence of team condition text from ZZZ characters
-
-        Returns:
-            str: common prefix from the team condition text
-        """
-        return os.path.commonprefix(path_lists)
-
     subset_data = dataFrame.filter(regex=ZZZ_REGEX_SIMPLE_TEAM_CONDITION)
     # subset_data = dataFrame.filter(regex=ZZZ_REGEX_TEAM_CONDITION)
 
@@ -791,6 +780,16 @@ def extract_noble_phantasms_details(dataFrame: pd.DataFrame) -> None:
             lambda x: join_all_items(x),
             axis=1
         )
+    
+    # Map NP Card Number to Card type Name 
+    dataFrame[FGOColumnNames.NPCARDTYPE] = dataFrame[
+        FGOColumnNames.NPCARDTYPE
+        ].apply(
+            lambda x: ", ".join(
+                CardType(int(card)).name 
+                for card in x.split(",")
+            ) 
+    )
 
     dataFrame[FGOColumnNames.NPTAGS] = subset_data.apply(
         lambda x: x.str[FGOColumnNames.FUNCTIONS]
