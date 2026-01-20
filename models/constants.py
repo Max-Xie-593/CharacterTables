@@ -191,8 +191,8 @@ FGO_COLUMNS: Final[Sequence[str]] = [
 ]
 
 ZZZ_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
-    1431, # Ye Shunguang
-    1341, # Zhao
+    1491, # Sunna (Chinatsu)
+    1501, # Aria
 ]
 
 FGO_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
