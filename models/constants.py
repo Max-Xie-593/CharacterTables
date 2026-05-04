@@ -191,8 +191,9 @@ FGO_COLUMNS: Final[Sequence[str]] = [
 ]
 
 ZZZ_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
-    1491, # Sunna (Chinatsu)
-    1501, # Aria
+    # 1491, # Sunna (Chinatsu)
+    # 1501, # Aria
+    0, # N/A
 ]
 
 FGO_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
@@ -203,6 +204,8 @@ FGO_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
     9939130, # (168) Beast III/R 
     9935500, # (151) Goetia 
     9935400, # (149) Tiamat 
+    9945590, # (411) E-Flare Marie
+    9945600, # (412) E-Aqua Marie
 ]
 
 GI_STATS_COLUMNS: Final[Mapping] = {

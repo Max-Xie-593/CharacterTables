@@ -19,7 +19,7 @@ class ClientAPI:
             case GameInitials.GI:
                 return ambr.AmbrAPI()
             case GameInitials.ZZZ:
-                return hakushin.HakushinAPI(GameInitials.ZZZ)
+                return hakushin.HakushinAPI(GameInitials.ZZZ,use_live=True)
             case GameInitials.FGO:
                 return atlasacademy.AtlasAcademyAPI()
             case _: # Highly unlikely default case

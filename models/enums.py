@@ -122,13 +122,13 @@ class ZZZColumnNames(StrEnum):
     FACTION = "faction.name" # hakushin_pandas_normalized
     BIRTHDAY = "info.birthday" # hakushin_pandas_normalized
     FULLNAME = "info.full_name" # hakushin_pandas_normalized
-    ASSISTDESCRIPTION = "skills.Assist.descriptions" # hakushin_pandas_normalized
-    ATTACK_STAT = "stats.Attack" # hakushin_pandas_normalized
-    ATTACKGROWTH_STAT = "stats.AttackGrowth" # hakushin_pandas_normalized
-    HP_STAT = "stats.HpMax" # hakushin_pandas_normalized
-    HPGROWTH_STAT = "stats.HpGrowth" # hakushin_pandas_normalized
-    DEFENSE_STAT = "stats.Defence" # hakushin_pandas_normalized
-    DEFENSEGROWTH_STAT = "stats.DefenceGrowth" # hakushin_pandas_normalized
+    ASSISTDESCRIPTION = "skills.assist.descriptions" # hakushin_pandas_normalized
+    ATTACK_STAT = "stats.attack" # hakushin_pandas_normalized
+    ATTACKGROWTH_STAT = "stats.attack_growth" # hakushin_pandas_normalized
+    HP_STAT = "stats.hp_max" # hakushin_pandas_normalized
+    HPGROWTH_STAT = "stats.hp_growth" # hakushin_pandas_normalized
+    DEFENSE_STAT = "stats.defence" # hakushin_pandas_normalized
+    DEFENSEGROWTH_STAT = "stats.defence_growth" # hakushin_pandas_normalized
 
     ASCENSIONSTAT1 = "ascension_stat_1" # self_created
     ASCENSIONSTAT2 = "ascension_stat_2" # self_created
