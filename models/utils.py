@@ -4,20 +4,20 @@ from itertools import product
 from collections.abc import Sequence, Mapping
 import json, os, asyncio
 
-from .constants import (
-    GI_CHARACTER_CURVE, 
+from .gi.constants import GI_CHARACTER_CURVE
+from .general.constants import (
     CHARACTERS_JSON, 
     CHARACTERS_CLEANED, 
     GAME_CHOICES, 
     SUB_FOLDERS
 )
-from .enums import (
+from .general.enums import (
     GameInitials,
     DataFolders,
     ArgumentParserKwargs
 )
 from .client import get_client_api, API
-from .pandas import clean_up_character_info
+from .builder import clean_up_character_info
 
 __all__ = (
     "add_parser_info",

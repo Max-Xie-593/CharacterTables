@@ -1,5 +1,5 @@
 import hakushin, ambr, atlasacademy, umamusume
-from .enums import GameInitials
+from .general.enums import GameInitials
 from functools import cache
 
 type API = ambr.AmbrAPI | hakushin.HakushinAPI | atlasacademy.AtlasAcademyAPI | umamusume.UmaMusumeAPI
@@ -23,5 +23,5 @@ def get_client_api(game: GameInitials) -> API | None:
                 return atlasacademy.AtlasAcademyAPI()
             case GameInitials.UMAMUSU:
                 return umamusume.UmaMusumeAPI()
-            case _: # Highly unlikely default case
+            case _: # highly unlikely default case
                 return None
