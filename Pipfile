@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-hakushin-py = "*"
 pandas = "*"
 multipledispatch = "*"
 deep-translator = "*"
 atlasacademy-py = {editable = true, git = "https://github.com/Max-Xie-593/FGOAtlasAcademyAPI.git"}
 ambr-py = "*"
+hakushin-py = {git = "https://github.com/seriaati/hakushin-py.git"}
+umamusume-api = {git = "https://github.com/Max-Xie-593/UmamusumeAPI.git"}
 
 [dev-packages]
 

@@ -9,6 +9,7 @@ Currently, CharacterTables supports data extraction from the following games:
 -   **Genshin Impact (GI)**
 -   **Zenless Zone Zero (ZZZ)**
 -   **Fate/Grand Order (FGO)**
+-   **Uma Musume: Pretty Derby (UMAMUSU)**
 
 ## Tech Stack
 
@@ -60,6 +61,9 @@ python driver.py characters ZZZ
 
 # Fetch Fate/Grand Order characters
 python driver.py characters FGO
+
+# Fetch Uma Musume characters
+python driver.py characters UMAMUSU
 ```
 
 ### 2. Convert to CSV
@@ -77,6 +81,9 @@ python driver.py pandas GI
 
 # Convert Zenless Zone Zero data to CSV
 python driver.py pandas ZZZ
+
+# Convert Uma Musume data to CSV
+python driver.py pandas UMAMUSU
 ```
 
 ### Help

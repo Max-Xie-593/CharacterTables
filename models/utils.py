@@ -16,7 +16,7 @@ from .enums import (
     DataFolders,
     ArgumentParserKwargs
 )
-from .client import ClientAPI
+from .client import get_client_api, API
 from .pandas import clean_up_character_info
 
 __all__ = (
@@ -61,12 +61,14 @@ def write_json_to_file(
             DataFolders.RAW,
             output_file
         ),
-        "w"
+        "w",
+        encoding="utf-8",
     ) as file:
         json.dump(
             json_info,
             file,
-            indent=4
+            indent=4,
+            ensure_ascii=False
         )
 
 def read_json_to_variable(
@@ -92,7 +94,8 @@ def read_json_to_variable(
     return json.load(
         open(
             filePath,
-            "r"
+            "r",
+            encoding="utf-8",
         )
     ) if os.path.isfile(filePath) else None
 
@@ -187,12 +190,12 @@ def print_character_data(args: Namespace):
     """
     game = GameInitials(args.game)
     extract_character_data(
-        ClientAPI(game),
+        get_client_api(game),
         game
     )
 
 def extract_character_data(
-        client: ClientAPI,
+        client: API,
         game: GameInitials
     ) -> None:
     """retrieve json data from the websites using the API
@@ -225,7 +228,7 @@ def extract_character_data(
     )
 
 async def extract_gi_character_curve(
-        client: ClientAPI,
+        client: API,
         game: GameInitials,
         output_file: str
     ) -> None:
@@ -244,7 +247,7 @@ async def extract_gi_character_curve(
         )
 
 async def extract_character(
-        client: ClientAPI,
+        client: API,
         game: GameInitials,
         output_file: str
     ) -> None:
@@ -263,7 +266,7 @@ async def extract_character(
                         await api.fetch_character_detail(
                             character.id, use_cache=False
                         )
-                    ).model_dump_json()
+                    ).model_dump_json(ensure_ascii=True)
                 )
                 for character in await api.fetch_characters(use_cache=False)
             ],

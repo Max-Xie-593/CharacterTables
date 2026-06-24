@@ -19,13 +19,16 @@ from .enums import (
     CharacterTableColumnNames, 
     GIColumnNames, 
     ZZZColumnNames, 
-    FGOColumnNames
+    FGOColumnNames,
+    UmaMusuColumnNames,
 )
 from .constants import (
     GI_COLUMNS, 
     ZZZ_COLUMNS, 
-    FGO_COLUMNS, 
-    ZZZ_TEAM_PREFIXES, 
+    FGO_COLUMNS,
+    UMAMUSUME_COLUMNS, 
+    ZZZ_TEAM_PREFIXES,
+    ZZZ_ASSIST_TYPES,
     ZZZ_INCOMPLETE_CHARACTER_IDS,
     FGO_INCOMPLETE_CHARACTER_IDS, 
     FGO_ENEMY_TARGET_TYPE, 
@@ -34,14 +37,16 @@ from .constants import (
     SELF_TEXT, 
     SUPPORT_TEXT,
     FGO_REGEX_CARD_HITS_DISTRIBUTION,
-    ZZZ_REGEX_TEAM_CONDITION,
     ZZZ_REGEX_SIMPLE_TEAM_CONDITION,
-    ZZZ_REGEX_OR,
     GI_STATS_COLUMNS,
     ZZZ_STATS_COLUMNS,
     FGO_NP_COLUMNS,
     GI_SPECIAL_ENUMS_COLUMNS,
-    ZZZ_REGEX_TEAM_CONDITION_TYPES
+    ZZZ_REGEX_TEAM_CONDITION_TYPES,
+    GI_BIRTHDAY_COLUMNS,
+    UMAMUSUME_BIRTHDAY_COLUMNS,
+    UMA_COLUMN_RENAMING,
+    UMA_STATS_COLUMNS,
 )
 from hakushin.enums import ZZZSpecialty
 from multipledispatch import dispatch
@@ -114,6 +119,65 @@ def remove_incomplete_data(dataFrame: pd.DataFrame, game: GameInitials) -> None:
     )
     dataFrame.reset_index(inplace=True)
 
+def rename_dataframe_columns(dataFrame: pd.DataFrame, columns: Mapping) -> None:
+    """function to rename columns in the Dataframe Object.
+
+    Args:
+        dataFrame (pd.DataFrame): Dataframe Object containing character information
+    """
+    dataFrame.rename(columns=columns, inplace=True)
+
+@dispatch(pd.Series, pd.Series)
+def create_birthday(month: pd.Series, day: pd.Series) -> pd.Series:
+    """helper function to extract the birthday of characters
+
+    Args:
+        month (pd.Series): birth month of characters
+        day (pd.Series): birth day of characters 
+
+    Returns:
+        pd.Series: birthday column of characters
+    """
+    return (
+        month.apply(
+            lambda x: calendar.month_abbr[x] 
+            if x > 0 
+            else NONE_TEXT
+        ) + 
+        " " + 
+        day.astype(str)
+    )
+
+@dispatch(pd.Series, pd.Series, pd.Series)
+def create_birthday(month: pd.Series, day: pd.Series, year: pd.Series) -> pd.Series:
+    """helper function to extract the birthday of characters
+
+    Args:
+        month (pd.Series): birth month of characters
+        day (pd.Series): birth day of characters
+        year (pd.Series): birth year of characters 
+
+    Returns:
+        pd.Series: birthday column of characters
+    """
+    return create_birthday(month,day) + " " + year.astype(str)
+
+
+def extract_birthday(dataFrame: pd.DataFrame, columns: Sequence[str]) -> None:
+    """function to extract the birthdays of characters
+
+    Args:
+        dataFrame (pd.DataFrame): DataFrame Object containing character information
+        columns (Sequence[str]): Column names containing birthday relevant column names
+    """
+
+    dataFrame[CharacterTableColumnNames.BIRTHDAY] = create_birthday(
+        *map(
+            dataFrame.get, 
+            columns
+        )
+    )
+
 # PANDAS ZZZ FUNCTIONS
 def extract_team_condition(dataFrame: pd.DataFrame) -> None:
     """extracts team conditions for agents in ZZZ
@@ -162,7 +226,6 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
     subset_data = dataFrame.filter(regex=ZZZ_REGEX_SIMPLE_TEAM_CONDITION)
     # subset_data = dataFrame.filter(regex=ZZZ_REGEX_TEAM_CONDITION)
 
-    # subset_data = subset_data.ffill(axis=1)
     subset_data = (
         subset_data.iloc[:,-1]
         .str[1]
@@ -178,7 +241,7 @@ def extract_team_condition(dataFrame: pd.DataFrame) -> None:
                 conditions
             )
         ).to_list()
-    )
+    ).fillna("")
     for idx, col in enumerate(subset_data):
         dataFrame[
             f"team_condition_{idx+1}"
@@ -192,14 +255,21 @@ def extract_assist(dataFrame: pd.DataFrame) -> None:
     Args:
         dataFrame (pd.DataFrame): DataFrame Object containing ZZZ character information
     """
-    subset_data = normalize_json(dataFrame[ZZZColumnNames.ASSISTDESCRIPTION])
-    subset_data = subset_data.ffill(axis=1)
-    subset_data = subset_data.map(
+    dataFrame[ZZZColumnNames.ASSISTTYPE] = dataFrame[ZZZColumnNames.ASSISTDESCRIPTION].apply(
+        lambda x: list(
+            filter(
+                None,
+                [
+                    y 
+                    if y[CharacterTableColumnNames.NAME].startswith(ZZZ_ASSIST_TYPES) 
+                    else None 
+                    for y in x
+                ]
+            )
+        )
+    ).str[0].map(
         lambda x: x[CharacterTableColumnNames.NAME].split(":")[0]
-    ).apply(
-        lambda x: sorted(list(set(x))), axis=1
     )
-    dataFrame[ZZZColumnNames.ASSISTTYPE] = subset_data.apply(lambda x: x[1])
 
 def extract_ascension_stats(dataFrame: pd.DataFrame) -> None:
     """function to extract the ascension stats for ZZZ characters
@@ -259,43 +329,6 @@ def extract_max_hp_atk_def(dataFrame: pd.DataFrame) -> None:
         ).round(4)
 
 # PANDAS GI FUNCTIONS
-def extract_birthday(dataFrame: pd.DataFrame) -> None:
-    """function to extract the birthdays of Genshin Impact characters
-
-    Args:
-        dataFrame (pd.DataFrame): DataFrame Object containing GI character information
-    """
-        
-    def create_birthday(month: pd.Series, day: pd.Series) -> pd.Series:
-        """helper function to extract the birthday of GI characters
-
-        Args:
-            month (pd.Series): birth month of GI characters
-            day (pd.Series): birth day of GI characters 
-
-        Returns:
-            pd.Series: birthday column of GI characters
-        """
-        return (
-            month.apply(
-                lambda x: calendar.month_abbr[x] 
-                if x > 0 
-                else NONE_TEXT
-            ) + 
-            " " + 
-            day.astype(str)
-        )
-
-    dataFrame[GIColumnNames.BIRTHDAY] = create_birthday(
-        *map(
-            dataFrame.get, 
-            [
-                GIColumnNames.BIRTHDATE_MONTH,
-                GIColumnNames.BIRTHDATE_DAY
-            ]
-        )
-    )
-
 def convert_special_enums(dataFrame: pd.DataFrame) -> None:
     """function to extract special stats of GI characters
 
@@ -327,11 +360,9 @@ def convert_jp_va(dataFrame: pd.DataFrame) -> None:
         dataFrame (pd.DataFrame): DataFrame Object containing GI character information
     """
     translator = GoogleTranslator(source="ja")
-    dataFrame[GIColumnNames.JP_VA] = json_normalize(
-        dataFrame[GIColumnNames.CHARACTER_VOICE]
-    ).apply(
-        lambda x: x.str[GIColumnNames.VOICE_ACTOR]
-    )[2].map(
+    dataFrame[GIColumnNames.JP_VA] = dataFrame[GIColumnNames.CHARACTER_VOICE].str[2].apply(
+        lambda x: x[GIColumnNames.VOICE_ACTOR]
+    ).map(
         lambda x: translator.translate(x)
     )
 
@@ -440,11 +471,13 @@ def extract_energy_costs(dataFrame: pd.DataFrame) -> None:
     Args:
         dataFrame (pd.DataFrame): DataFrame Object containing GI character information
     """
-    dataFrame[GIColumnNames.ULTIMATECOST] = normalize_json(
-        dataFrame[GIColumnNames.TALENTS]
-    ).apply(
-        lambda x: x.str["cost"]
-    ).infer_objects().ffill(axis=1).iloc[:,-1]
+    dataFrame[GIColumnNames.ULTIMATECOST] = dataFrame[GIColumnNames.TALENTS].apply(
+        lambda x: [
+            y["cost"] 
+            for y in x 
+            if y["cost"] is not None
+        ] 
+    ).str[-1]
 
 # PANDAS FGO FUNCTIONS
 def extract_servant_traits(dataFrame: pd.DataFrame) -> None:
@@ -709,7 +742,6 @@ def join_all_set_items(seriesData: pd.Series) -> pd.Series:
         )
     )
 
-
 def extract_servant_skill_tags(dataFrame: pd.DataFrame) -> None:
     """function to extract all skill tags of a FGO character
 
@@ -733,10 +765,13 @@ def extract_servant_skill_tags(dataFrame: pd.DataFrame) -> None:
             )
         )
 
-    dataFrame[FGOColumnNames.SKILLTAGS] = normalize_json(
-        dataFrame[FGOColumnNames.SKILLS]
-    ).apply(
-        lambda x: x.str[FGOColumnNames.FUNCTIONS]
+    dataFrame[FGOColumnNames.SKILLTAGS] = pd.DataFrame(
+        dataFrame[FGOColumnNames.SKILLS].apply(
+            lambda x: [
+                y[FGOColumnNames.FUNCTIONS]
+                for y in x
+            ]
+        ).to_list()
     ).apply(
         lambda x: aggregate_skill_functions(x),
         axis=1
@@ -769,7 +804,11 @@ def extract_noble_phantasms_details(dataFrame: pd.DataFrame) -> None:
             )
         )
 
-    subset_data = normalize_json(dataFrame[FGOColumnNames.NOBLEPHANTASMS])
+    subset_data = pd.DataFrame(
+        dataFrame[
+            FGOColumnNames.NOBLEPHANTASMS
+        ].to_list()
+    )
 
     for new_col_name, lambdaFunc in FGO_NP_COLUMNS.items():
         dataFrame[
@@ -799,9 +838,33 @@ def extract_noble_phantasms_details(dataFrame: pd.DataFrame) -> None:
         lambda x: join_all_set_items(x),axis=1
     )
 
+# PANDAS UMAMUSUME FUNCTIONS
+def extract_umamusume_gender(dataFrame: pd.DataFrame) -> None:
+    """function to determine the gender of the real life 
+
+    Args:
+        dataFrame (pd.DataFrame): Dataframe Object containing Umamusume character information
+    """
+    dataFrame[CharacterTableColumnNames.GENDER] = dataFrame[
+        UmaMusuColumnNames.UMAMUSU_GENDER
+        ].apply(
+            lambda x: "M" 
+            if x == 1 
+            else "F"
+        )
+
+def extract_umamusume_stats(dataFrame: pd.DataFrame) -> None:
+    """function to unpack Umamusume's stats
+
+    Args:
+        dataFrame (pd.DataFrame): Dataframe Object containing Umamusume character information
+    """
+    for original_col, unpacked_cols in UMA_STATS_COLUMNS.items():
+        dataFrame[unpacked_cols] = dataFrame[original_col].to_list()
+
 # PANDAS BUILDER
 def clean_up_character_info(character_data: Any, curve_data: Optional[Any], game: GameInitials) -> pd.DataFrame:
-    """function to convert character information into a DataFrame Object. Attempt at a Builder Design Pattern.
+    """function to convert character information into a DataFrame Object. Attempt at a Facade/Factory Design Pattern.
 
     Args:
         character_data (Any): information of game characters from a game
@@ -838,7 +901,7 @@ def clean_up_character_info(character_data: Any, curve_data: Optional[Any], game
         Returns:
             pd.DataFrame: cleaned up DataFrame Object containing GI game data
         """
-        extract_birthday(dataFrame)
+        extract_birthday(dataFrame,GI_BIRTHDAY_COLUMNS)
         convert_special_enums(dataFrame)
         convert_release_time(dataFrame)
         convert_jp_va(dataFrame)
@@ -863,6 +926,21 @@ def clean_up_character_info(character_data: Any, curve_data: Optional[Any], game
         extract_servant_skill_tags(dataFrame)
         extract_noble_phantasms_details(dataFrame)
         return pd.DataFrame(dataFrame[FGO_COLUMNS])
+    
+    def clean_up_umamusume_character_info(dataFrame: pd.DataFrame) -> pd.DataFrame:
+        """helper function that contains UmaMusume relevant functions to create the table
+
+        Args:
+            data (pd.DataFrame): DataFrame Object containing UmaMusume game data
+
+        Returns:
+            pd.DataFrame: cleaned up DataFrame Object containing UmaMusume game data
+        """
+        rename_dataframe_columns(dataFrame,UMA_COLUMN_RENAMING)
+        extract_birthday(dataFrame,UMAMUSUME_BIRTHDAY_COLUMNS)
+        extract_umamusume_stats(dataFrame)
+        extract_umamusume_gender(dataFrame)
+        return pd.DataFrame(dataFrame[UMAMUSUME_COLUMNS])
 
     pdData = normalize_json(character_data)
 
@@ -873,6 +951,8 @@ def clean_up_character_info(character_data: Any, curve_data: Optional[Any], game
             return clean_up_zzz_character_info(pdData)
         case GameInitials.FGO:
             return clean_up_fgo_character_info(pdData)
+        case GameInitials.UMAMUSU:
+            return clean_up_umamusume_character_info(pdData)
         case _: # Highly unlikely default case
             return None
      

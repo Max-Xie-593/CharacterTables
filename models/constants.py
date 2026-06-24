@@ -7,6 +7,7 @@ from .enums import (
     GIColumnNames,
     ZZZColumnNames, 
     FGOColumnNames,
+    UmaMusuColumnNames,
     ArgumentParserKwargs,
 )
 from fgo_api_types.gameenums import NiceFuncTargetType
@@ -23,10 +24,16 @@ __all__ = (
     "GI_COLUMNS",
     "ZZZ_COLUMNS",
     "FGO_COLUMNS",
+    "UMAMUSUME_COLUMNS",
     "ZZZ_TEAM_PREFIXES",
+    "ZZZ_ASSIST_TYPES",
     "ZZZ_INCOMPLETE_CHARACTER_IDS",
     "FGO_INCOMPLETE_CHARACTER_IDS",
     "FGO_ENEMY_TARGET_TYPE",
+    "GI_BIRTHDAY_COLUMNS",
+    "UMAMUSUME_BIRTHDAY_COLUMNS",
+    "UMA_COLUMN_RENAMING",
+    "UMA_STATS_COLUMNS",
 )
 
 # TEXT RELATED CONSTANTS
@@ -82,6 +89,7 @@ ZZZ_REGEX_TEAM_CONDITION_TYPES: Match[str] = r'(Attack|Stun|Support|Rupture|Defe
 ZZZ_REGEX_OR: Match[str] = r',? or |,'
 
 ZZZ_TEAM_PREFIXES: Final[Sequence[str]] = ["is an", "is a", "shares the same", "can activate"]
+ZZZ_ASSIST_TYPES: Final[Sequence[str]] = tuple(["Defensive","Evasive"])
 
 FGO_ENEMY_TARGET_TYPE: Final[Set[NiceFuncTargetType]] = set([
     NiceFuncTargetType.enemy,
@@ -129,7 +137,7 @@ GI_COLUMNS: Final[Sequence[str]] = [
     GIColumnNames.REGION,
     GIColumnNames.AFFILIATION,
     GIColumnNames.CONSTELLATION,
-    GIColumnNames.BIRTHDAY,
+    CharacterTableColumnNames.BIRTHDAY,
     GIColumnNames.RELEASEDATE,
 
     CharacterTableColumnNames.RARITY, 
@@ -141,6 +149,11 @@ GI_COLUMNS: Final[Sequence[str]] = [
     CharacterTableColumnNames.DEFMAX,
     GIColumnNames.ASCENSIONSTAT, 
     GIColumnNames.ULTIMATECOST,
+]
+
+GI_BIRTHDAY_COLUMNS: Final[Sequence[str]] = [
+    GIColumnNames.BIRTHDATE_MONTH,
+    GIColumnNames.BIRTHDATE_DAY,
 ]
 
 FGO_COLUMNS: Final[Sequence[str]] = [
@@ -190,10 +203,73 @@ FGO_COLUMNS: Final[Sequence[str]] = [
     FGOColumnNames.NPTAGS,
 ]
 
+UMAMUSUME_STAT_BONUSES: Final[Sequence[str]] = [
+    UmaMusuColumnNames.SPD_STAT_BONUS,
+    UmaMusuColumnNames.STA_STAT_BONUS,
+    UmaMusuColumnNames.POW_STAT_BONUS,
+    UmaMusuColumnNames.GUT_STAT_BONUS,
+    UmaMusuColumnNames.WIT_STAT_BONUS,
+]
+
+UMAMUSUME_BASE_STATS: Final[Sequence[str]] = [
+    UmaMusuColumnNames.SPD_BASE_STAT,
+    UmaMusuColumnNames.STA_BASE_STAT,
+    UmaMusuColumnNames.POW_BASE_STAT,
+    UmaMusuColumnNames.GUT_BASE_STAT,
+    UmaMusuColumnNames.WIT_BASE_STAT,
+]
+
+UMAMUSUME_MAX_BASE_STATS: Final[Sequence[str]] = [
+    UmaMusuColumnNames.SPD_MAX_BASE_STAT,
+    UmaMusuColumnNames.STA_MAX_BASE_STAT,
+    UmaMusuColumnNames.POW_MAX_BASE_STAT,
+    UmaMusuColumnNames.GUT_MAX_BASE_STAT,
+    UmaMusuColumnNames.WIT_MAX_BASE_STAT,
+]
+
+UMAMUSUME_BASE_APTITUDES: Final[Sequence[str]] = [
+    UmaMusuColumnNames.TURF_APTITUDE,
+    UmaMusuColumnNames.DIRT_APTITUDE,
+    UmaMusuColumnNames.SPRINT_APTITUDE,
+    UmaMusuColumnNames.MILE_APTITUDE,
+    UmaMusuColumnNames.MEDIUM_APTITUDE,
+    UmaMusuColumnNames.LONG_APTITUDE,
+    UmaMusuColumnNames.FRONT_APTITUDE,
+    UmaMusuColumnNames.PACE_APTITUDE,
+    UmaMusuColumnNames.LATE_APTITUDE,
+    UmaMusuColumnNames.END_APTITUDE,
+]
+
+UMAMUSUME_COLUMNS: Final[Sequence[str]] = [
+    CharacterTableColumnNames.ID,
+    CharacterTableColumnNames.NAME,
+    CharacterTableColumnNames.RARITY,
+    UmaMusuColumnNames.UMAMUSU_ALT,
+    UmaMusuColumnNames.TITLE,
+    UmaMusuColumnNames.UMAMUSU_JP_VA,
+
+    CharacterTableColumnNames.GENDER,
+    CharacterTableColumnNames.BIRTHDAY,
+    
+    UmaMusuColumnNames.UMAMUSU_HEIGHT,
+    UmaMusuColumnNames.UMAMUSU_BUST,
+    UmaMusuColumnNames.UMAMUSU_WAIST,
+    UmaMusuColumnNames.UMAMUSU_HIPS,
+
+    *UMAMUSUME_BASE_STATS,
+    *UMAMUSUME_MAX_BASE_STATS,
+    *UMAMUSUME_STAT_BONUSES,
+    *UMAMUSUME_BASE_APTITUDES,
+]
+
+UMAMUSUME_BIRTHDAY_COLUMNS: Final[Sequence[str]] = [
+    UmaMusuColumnNames.UMAMUSU_BIRTH_MONTH,
+    UmaMusuColumnNames.UMAMUSU_BIRTH_DAY,
+    UmaMusuColumnNames.UMAMUSU_BIRTH_YEAR,
+]
+
 ZZZ_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
-    # 1491, # Sunna (Chinatsu)
-    # 1501, # Aria
-    0, # N/A
+    1581, # Remielle
 ]
 
 FGO_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
@@ -252,11 +328,22 @@ ZZZ_STATS_COLUMNS: Final[Mapping] = {
     ],
 }
 
-FGO_NP_COLUMNS: Final[Mapping] ={
+FGO_NP_COLUMNS: Final[Mapping] = {
     FGOColumnNames.NPCARDTYPE: lambda x: x.str[FGOColumnNames.CARD],
     FGOColumnNames.NPRANKS: lambda x: x.str[FGOColumnNames.NPRANKS],
     FGOColumnNames.NPTYPES: lambda x: x.str[FGOColumnNames.NPTYPES],
     FGOColumnNames.NPTARGETEFFECT: lambda x: x.str[FGOColumnNames.EFFECTFLAGS].str[0],
 }
 
+UMA_COLUMN_RENAMING: Final[Mapping] = {
+    UmaMusuColumnNames.UMAMUSU_ID: CharacterTableColumnNames.ID,
+    UmaMusuColumnNames.UMAMUSU_NAME: CharacterTableColumnNames.NAME,
+    UmaMusuColumnNames.UMAMUSU_RARITY: CharacterTableColumnNames.RARITY,
+}
 
+UMA_STATS_COLUMNS: Final[Mapping] = {
+    UmaMusuColumnNames.UMAMUSU_BASE_STATS: UMAMUSUME_BASE_STATS,
+    UmaMusuColumnNames.UMAMUSU_FIVE_STAR_STATS: UMAMUSUME_MAX_BASE_STATS,
+    UmaMusuColumnNames.UMAMUSU_STAT_BONUSES: UMAMUSUME_STAT_BONUSES,
+    UmaMusuColumnNames.UMAMUSU_APTITUDE: UMAMUSUME_BASE_APTITUDES,
+}
