@@ -40,7 +40,7 @@ ZZZ_COLUMNS: Final[Sequence[str]] = [
 ]
 
 ZZZ_INCOMPLETE_CHARACTER_IDS: Final[Sequence[int]] = [
-    1581, # Remielle
+    # 1581, # Remielle
 ]
 
 ZZZ_STATS_COLUMNS: Final[Mapping] = {

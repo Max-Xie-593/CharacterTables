@@ -1,8 +1,12 @@
 import pandas as pd
+import time
 from datetime import datetime
 from collections import defaultdict
 from collections.abc import Mapping
 from deep_translator import GoogleTranslator
+from deep_translator.exceptions import TranslationNotFound, RequestError
+from tqdm import tqdm
+
 from typing import Any, Optional
 from ambr.enums import SpecialStat
 
@@ -41,17 +45,52 @@ def convert_release_time(dataFrame: pd.DataFrame) -> None:
 
 def convert_jp_va(dataFrame: pd.DataFrame) -> None:
     """function to convert the japanese voice actor of GI characters to english names using Google Translate. 
-    Translations may not be accurate. 
+    Translations may not be accurate. Uses tqdm to show progress of translations.
 
     Args:
         dataFrame (pd.DataFrame): DataFrame Object containing GI character information
     """
     translator = GoogleTranslator(source="ja")
-    dataFrame[GIColumnNames.JP_VA] = dataFrame[GIColumnNames.CHARACTER_VOICE].str[2].apply(
-        lambda x: x[GIColumnNames.VOICE_ACTOR]
-    ).map(
-        lambda x: translator.translate(x)
+
+    # 1. Extract raw Japanese names first to avoid nested lambda issues
+    jp_names = dataFrame[GIColumnNames.CHARACTER_VOICE].str[2].apply(
+        lambda x: x[GIColumnNames.VOICE_ACTOR] if isinstance(x, dict) else None
     )
+    
+    translated_names = []
+    
+    # 2. Process names sequentially with error handling
+    for name in tqdm(jp_names, desc="Translating VA Names", unit="character"):
+        if pd.isna(name) or not str(name).strip():
+            translated_names.append(name)
+            continue
+            
+        translated_text = name
+        max_retries = 3
+        backoff_delay = 2  # Seconds
+        
+        for attempt in range(max_retries):
+            try:
+                # Add a mandatory baseline delay between every request
+                time.sleep(1.0) 
+                
+                translated_text = translator.translate(name)
+                break  # Success, exit the retry loop
+                
+            except (RequestError, TranslationNotFound, Exception) as e:
+                if attempt == max_retries - 1:
+                    print(f"Failed to translate '{name}' after {max_retries} attempts. Error: {e}")
+                    # Keeps the original Japanese name as a fallback instead of crashing
+                    break  
+                
+                # Wait longer before retrying (2s, then 4s, etc.)
+                time.sleep(backoff_delay)
+                backoff_delay *= 2 
+                
+        translated_names.append(translated_text)
+        
+    # 3. Assign the stable results back to the DataFrame
+    dataFrame[GIColumnNames.JP_VA] = translated_names
 
 def extract_max_hp_atk_def(dataFrame: pd.DataFrame, curve_data: Mapping) -> None:
     """function to extract the max stats of GI characters
