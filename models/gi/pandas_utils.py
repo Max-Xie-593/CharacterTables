@@ -6,6 +6,7 @@ from collections.abc import Mapping
 from deep_translator import GoogleTranslator
 from deep_translator.exceptions import TranslationNotFound, RequestError
 from tqdm import tqdm
+from loguru import logger
 
 from typing import Any, Optional
 from ambr.enums import SpecialStat
@@ -58,9 +59,16 @@ def convert_jp_va(dataFrame: pd.DataFrame) -> None:
     )
     
     translated_names = []
+
+    logger.remove()
+    logger.add(
+        lambda msg: tqdm.write(msg, end=""),
+        colorize=True,
+        level="ERROR"
+    )
     
     # 2. Process names sequentially with error handling
-    for name in tqdm(jp_names, desc="Translating VA Names", unit="character"):
+    for name in tqdm(jp_names, desc="Translating VA Names", unit="name"):
         if pd.isna(name) or not str(name).strip():
             translated_names.append(name)
             continue
@@ -79,7 +87,7 @@ def convert_jp_va(dataFrame: pd.DataFrame) -> None:
                 
             except (RequestError, TranslationNotFound, Exception) as e:
                 if attempt == max_retries - 1:
-                    print(f"Failed to translate '{name}' after {max_retries} attempts. Error: {e}")
+                    logger.error(f"Failed to translate '{name}' after {max_retries} attempts. Error: {e}")
                     # Keeps the original Japanese name as a fallback instead of crashing
                     break  
                 

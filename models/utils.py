@@ -2,6 +2,8 @@ from argparse import ArgumentParser, Namespace
 from typing import Any, Optional
 from itertools import product
 from collections.abc import Sequence, Mapping
+from loguru import logger
+from tqdm import tqdm
 import json, os, asyncio
 
 from .gi.constants import GI_CHARACTER_CURVE
@@ -122,10 +124,10 @@ def add_parser_info(
             arguments (Sequence[Mapping]): dict containing arugment information
         """
         for parameter_info in arguments:
+            name = parameter_info[ArgumentParserKwargs.NAME]
+            names = name if isinstance(name,(list,tuple)) else (name,)
             parser.add_argument(
-                parameter_info[
-                    ArgumentParserKwargs.NAME
-                ], 
+                *names, 
                 **parameter_info[
                     ArgumentParserKwargs.OTHER_PARAMS
                 ]
@@ -191,12 +193,14 @@ def print_character_data(args: Namespace):
     game = GameInitials(args.game)
     extract_character_data(
         get_client_api(game),
-        game
+        game,
+        debug=getattr(args,"debug",False)
     )
 
 def extract_character_data(
         client: API,
-        game: GameInitials
+        game: GameInitials,
+        debug: bool = False,
     ) -> None:
     """retrieve json data from the websites using the API
 
@@ -223,7 +227,8 @@ def extract_character_data(
         extract_character(
             client,
             game,
-            f"{game}_{CHARACTERS_JSON}"
+            f"{game}_{CHARACTERS_JSON}",
+            debug=debug
         )
     )
 
@@ -249,7 +254,8 @@ async def extract_gi_character_curve(
 async def extract_character(
         client: API,
         game: GameInitials,
-        output_file: str
+        output_file: str,
+        debug: bool = False,
     ) -> None:
     """function to extract character information from websites and output to a file
 
@@ -258,6 +264,15 @@ async def extract_character(
         game (GameInitials): game to retrieve data from
         output_file (str): file name to output to
     """
+
+    # Redirect loguru to tqdm.write to prevent progress bar glitches
+    logger.remove()
+    logger.add(
+        lambda msg: tqdm.write(msg, end=""),
+        colorize=True,
+        level="DEBUG" if debug else "INFO"
+    )
+
     async with client as api:
         write_json_to_file(
             [
@@ -268,7 +283,11 @@ async def extract_character(
                         )
                     ).model_dump_json(ensure_ascii=True)
                 )
-                for character in await api.fetch_characters(use_cache=False)
+                for character in tqdm(
+                    await api.fetch_characters(use_cache=False),
+                    desc=f"Fetching {game.value} characters",
+                    unit="character"
+                )
             ],
             game,
             output_file,

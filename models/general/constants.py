@@ -20,14 +20,23 @@ CHARACTERS_JSON: Final[str] = f"{CHARACTERS_TEXT}.json"
 
 CHARACTERS_CLEANED: Final[str] = f"{CHARACTERS_TEXT}.csv"
 
-GAME_PARAM_INFO: Final[Sequence[Mapping]] =  [{
-    ArgumentParserKwargs.NAME: "game",
-    ArgumentParserKwargs.OTHER_PARAMS: {
-        ArgumentParserKwargs.TYPE: str,
-        ArgumentParserKwargs.CHOICES: GAME_CHOICES,
-        ArgumentParserKwargs.HELP: "required game to extract character data from",
+GAME_PARAM_INFO: Final[Sequence[Mapping]] =  [
+    {
+        ArgumentParserKwargs.NAME: "game",
+        ArgumentParserKwargs.OTHER_PARAMS: {
+            ArgumentParserKwargs.TYPE: str,
+            ArgumentParserKwargs.CHOICES: GAME_CHOICES,
+            ArgumentParserKwargs.HELP: "required game to extract character data from",
+        },
     },
-}]
+    {
+        ArgumentParserKwargs.NAME: ("-d","--debug"),
+        ArgumentParserKwargs.OTHER_PARAMS: {
+            ArgumentParserKwargs.ACTION: "store_true",
+            ArgumentParserKwargs.HELP: "enable debug mode",
+        },
+    },
+]
 
 CHARACTERS_PARSER_INFO : Final[Mapping] = {
     ArgumentParserKwargs.NAME: "characters",

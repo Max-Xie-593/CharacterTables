@@ -8,7 +8,7 @@ CHARACTER_TEXT: Final[str] = "character"
 
 ZZZ_REGEX_TEAM_CONDITION: Match[str] = r'passive.levels\.\d{4}(?:055|507|514)\.descriptions'
 ZZZ_REGEX_SIMPLE_TEAM_CONDITION: Match[str] = 'passive.levels.7.descriptions'
-ZZZ_REGEX_TEAM_CONDITION_TYPES: Match[str] = r'(Attack|Stun|Support|Rupture|Defense|Anomaly|Defensive Assist|[Aa]ttribute|Faction)'
+ZZZ_REGEX_TEAM_CONDITION_TYPES: Match[str] = r'(Attack|Stun|Support|Rupture|Defense|Anomaly|Defensive Assist|[Aa]ttribute|[Ff]action)'
 ZZZ_REGEX_OR: Match[str] = r',? or |,'
 
 ZZZ_TEAM_PREFIXES: Final[Sequence[str]] = ["is an", "is a", "shares the same", "can activate"]

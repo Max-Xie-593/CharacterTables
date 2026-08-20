@@ -35,6 +35,7 @@ class ArgumentParserKwargs(StrEnum):
     TYPE = auto()
     RUN = auto()
     OTHER_PARAMS = auto()
+    ACTION = auto() # Added for flags like store_true
 
 class CharacterTableColumnNames(StrEnum):
     """Enum of Column names applicable to any game
