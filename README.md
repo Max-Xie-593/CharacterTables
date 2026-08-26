@@ -20,6 +20,7 @@ This project leverages a robust set of Python libraries to handle API interactio
 -   **[hakushin-py](https://pypi.org/project/hakushin-py/)**: API wrapper for Zenless Zone Zero data.
 -   **[ambr-py](https://pypi.org/project/ambr-py/)**: API wrapper for Genshin Impact data (via Ambr.top).
 -   **[atlasacademy-py](https://github.com/Max-Xie-593/FGOAtlasAcademyAPI)**: API wrapper for Fate/Grand Order data (via Atlas Academy).
+-   **[umamusume-api](https://github.com/Max-Xie-593/UmamusumeAPI)**: API wrapper for Uma Musume: Pretty Derby data.
 -   **[multipledispatch](https://pypi.org/project/multipledispatch/)**: For function overloading capabilities.
 -   **[deep-translator](https://pypi.org/project/deep-translator/)**: For automated translation needs.
 
