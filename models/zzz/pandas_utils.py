@@ -1,6 +1,5 @@
 import pandas as pd
 import re
-from typing import Any, Optional
 from models.general.pandas_utils import normalize_json, remove_incomplete_data
 from models.general.enums import CharacterTableColumnNames
 from hakushin.enums import ZZZSpecialty
@@ -113,13 +112,18 @@ def extract_ascension_stats(dataFrame: pd.DataFrame) -> None:
     """
     subset_data = normalize_json(dataFrame[ZZZColumnNames.EXTRAASCENSION].str[5])
 
-    dataFrame[ZZZColumnNames.ASCENSIONSTAT1], dataFrame[ZZZColumnNames.ASCENSIONSTAT2] = (
+    subset_data = pd.DataFrame(
         subset_data[ZZZColumnNames.PROPS]
-        .str[n]
         .apply(
-            lambda x: x[CharacterTableColumnNames.NAME]
-        ) 
-        for n in range(2)
+            lambda x: [
+                y[CharacterTableColumnNames.NAME] 
+                for y in x 
+                if CharacterTableColumnNames.NAME in y
+            ]
+        ).to_list()
+    ).fillna("")
+    dataFrame[ZZZColumnNames.ASCENSIONSTAT1], dataFrame[ZZZColumnNames.ASCENSIONSTAT2] = (
+        subset_data[n] for n in range(2)
     )
 
 def extract_max_hp_atk_def(dataFrame: pd.DataFrame) -> None:
