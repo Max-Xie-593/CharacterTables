@@ -1,10 +1,12 @@
 import pandas as pd
 import time
+import random
 from datetime import datetime
 from collections import defaultdict
 from collections.abc import Mapping
-from deep_translator import GoogleTranslator
-from deep_translator.exceptions import TranslationNotFound, RequestError
+from deep_translator import GoogleTranslator, MyMemoryTranslator
+# from deep_translator import MyMemoryTranslator
+from deep_translator.exceptions import TranslationNotFound, RequestError, TooManyRequests
 from tqdm import tqdm
 from loguru import logger
 
@@ -45,13 +47,14 @@ def convert_release_time(dataFrame: pd.DataFrame) -> None:
     )
 
 def convert_jp_va(dataFrame: pd.DataFrame) -> None:
-    """function to convert the japanese voice actor of GI characters to english names using Google Translate. 
+    """function to convert the japanese voice actor of GI characters to english names using Google Translate with fallback to MyMemory Translation. 
     Translations may not be accurate. Uses tqdm to show progress of translations.
 
     Args:
         dataFrame (pd.DataFrame): DataFrame Object containing GI character information
     """
-    translator = GoogleTranslator(source="ja")
+    mymemory_translator = MyMemoryTranslator(source="ja-JP", target="en-US")
+    google_translator = GoogleTranslator(source="ja")
 
     # 1. Extract raw Japanese names first to avoid nested lambda issues
     jp_names = dataFrame[GIColumnNames.CHARACTER_VOICE].str[2].apply(
@@ -59,6 +62,7 @@ def convert_jp_va(dataFrame: pd.DataFrame) -> None:
     )
     
     translated_names = []
+    use_mymemory = False  # State flag to track permanent engine switch
 
     logger.remove()
     logger.add(
@@ -73,27 +77,40 @@ def convert_jp_va(dataFrame: pd.DataFrame) -> None:
             translated_names.append(name)
             continue
             
-        translated_text = name
-        max_retries = 3
-        backoff_delay = 2  # Seconds
-        
-        for attempt in range(max_retries):
+        name_str = str(name)
+        translated_text = name_str
+
+        # --- PATH A: Permanent Switch Active (MyMemory Only) ---
+        if use_mymemory:
             try:
-                # Add a mandatory baseline delay between every request
-                time.sleep(1.0) 
+                time.sleep(random.uniform(1.0, 2.0))
+                translated_text = mymemory_translator.translate(name_str)
+            except Exception as e:
+                logger.error(f"MyMemory failed for '{name_str}': {e}")
+                # Fallback to original Japanese if both fail
+            translated_names.append(translated_text)
+            continue
+        
+        # --- PATH B: Primary Engine (Google with Fallback) ---
+        try:
+            time.sleep(random.uniform(0.5, 1.2)) 
+            translated_text = google_translator.translate(name_str)
+            
+        except (TooManyRequests, RequestError) as e:
+            # Trigger the permanent engine change instantly
+            tqdm.write(f"[Google Blocked] Rate limit hit on '{name_str}'. Switching to MyMemory permanently.")
+            use_mymemory = True 
+            
+            # Immediately process the current failed row with MyMemory
+            try:
+                time.sleep(1.5)
+                translated_text = mymemory_translator.translate(name_str)
+            except Exception:
+                pass # Keeps original name if fallback fails right away
                 
-                translated_text = translator.translate(name)
-                break  # Success, exit the retry loop
-                
-            except (RequestError, TranslationNotFound, Exception) as e:
-                if attempt == max_retries - 1:
-                    logger.error(f"Failed to translate '{name}' after {max_retries} attempts. Error: {e}")
-                    # Keeps the original Japanese name as a fallback instead of crashing
-                    break  
-                
-                # Wait longer before retrying (2s, then 4s, etc.)
-                time.sleep(backoff_delay)
-                backoff_delay *= 2 
+        except Exception:
+            # Catch unexpected non-rate-limit exceptions without switching state
+            pass
                 
         translated_names.append(translated_text)
         
