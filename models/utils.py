@@ -240,23 +240,8 @@ def extract_character_data(
         client (ClientAPI): API Client used to retrieve data from
         game (GameInitials): game to retrieve data from
     """
-    if game is GameInitials.GI and not os.path.exists(
-        os.path.join(
-            DataFolders.DATA,
-            game,
-            DataFolders.RAW,
-            GI_CHARACTER_CURVE
-        )
-    ):
-        asyncio.run(
-            extract_gi_character_curve(
-                client,
-                game,
-                GI_CHARACTER_CURVE
-            )
-        )
     asyncio.run(
-        extract_character(
+        _extract_all_character_data(
             client,
             game,
             f"{game}_{CHARACTERS_JSON}",
@@ -264,39 +249,20 @@ def extract_character_data(
         )
     )
 
-async def extract_gi_character_curve(
-        client: API,
-        game: GameInitials,
-        output_file: str
-    ) -> None:
-    """function to extract the Genshin Impact character curve to calculate max stats
-
-    Args:
-        client (ClientAPI): API Client used to retrieve data from
-        game (GameInitials): game to retrieve data from
-        output_file (str): file name to output to
-    """
-    async with client as api:
-        write_json_to_file(
-            await api.fetch_avatar_curve(),
-            game,
-            output_file
-        )
-
-async def extract_character(
+async def _extract_all_character_data(
         client: API,
         game: GameInitials,
         output_file: str,
         debug: bool = False,
     ) -> None:
-    """function to extract character information from websites and output to a file
+    """Async coordinator to fetch curve (if needed) and character details within one session.
 
     Args:
-        client (ClientAPI): API Client used to retrieve data from
+        client (API): API Client used to retrieve data from
         game (GameInitials): game to retrieve data from
-        output_file (str): file name to output to
+        output_file (str): file name to output character data to
+        debug (bool): enable debug logging
     """
-
     # Redirect loguru to tqdm.write to prevent progress bar glitches
     logger.remove()
     logger.add(
@@ -308,6 +274,19 @@ async def extract_character(
     include = _CHARACTER_INCLUDE_FIELDS.get(game)
 
     async with client as api:
+        curve_file = os.path.join(
+            DataFolders.DATA,
+            game,
+            DataFolders.RAW,
+            GI_CHARACTER_CURVE
+        )
+        if game is GameInitials.GI and not os.path.exists(curve_file):
+            write_json_to_file(
+                await api.fetch_avatar_curve(),
+                game,
+                GI_CHARACTER_CURVE
+            )
+
         write_json_to_file(
             [
                 json.loads(
