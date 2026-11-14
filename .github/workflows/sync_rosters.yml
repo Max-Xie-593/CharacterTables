@@ -24,6 +24,8 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      TQDM_DISABLE: "1"
 
     steps:
       - name: Checkout repository
