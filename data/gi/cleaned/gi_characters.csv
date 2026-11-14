@@ -24,7 +24,7 @@ id,name,jp_va,info.title,region,info.native,info.constellation,birthday,release,
 10000037,Ganyu,Reina Ueda,Plenilune Gaze,LIYUE,Yuehai Pavilion,Sinae Unicornis,Dec 2,2021-01-12,5,BOW,CRYO,9796.7288,334.8497,630.2146,CRITI_DMG,60.0
 10000038,Albedo,Kenji Nojima,Kreideprinz,MONDSTADT,Knights of Favonius,Princeps Cretaceus,Sep 13,2020-12-21,5,SWORD,GEO,13225.5836,251.1373,876.152,GEO_DMG_BONUS,40.0
 10000039,Diona,Shiori Izawa,Kätzlein Cocktail,MONDSTADT,The Cat's Tail,Feles,Jan 18,2020-11-11,4,BOW,CRYO,9569.9253,212.3972,600.6189,CRYO_DMG_BONUS,80.0
-10000041,Mona,Yoshimi Kohara,Astral Reflection,MONDSTADT,Mondstadt,Astrolabos,Aug 31,2020-09-27,5,CATALYST,HYDRO,10409.024,287.0141,653.2712,ENERGY_RECHARGE,60.0
+10000041,Mona,Yoshimi Obara,Astral Reflection,MONDSTADT,Mondstadt,Astrolabos,Aug 31,2020-09-27,5,CATALYST,HYDRO,10409.024,287.0141,653.2712,ENERGY_RECHARGE,60.0
 10000042,Keqing,Eri Kitamura,Driving Thunder,LIYUE,Liyue Qixing,Trulla Cementarii,Nov 20,2020-09-27,5,SWORD,ELECTRO,13103.1246,322.8908,799.2965,CRITI_DMG,40.0
 10000043,Sucrose,Akane Fujita,Harmless Sweetie,MONDSTADT,Knights of Favonius,Ampulla,Nov 26,2020-09-27,4,CATALYST,ANEMO,9243.6775,169.9178,702.9972,ANEMO_DMG_BONUS,80.0
 10000044,Xinyan,Chiaki Takahashi,Blazing Riff,LIYUE,"""The Red Strings""",Fila Ignium,Oct 16,2020-12-02,4,CLAYMORE,PYRO,11201.1621,248.5047,798.5502,ATTACK,60.0
@@ -45,16 +45,16 @@ id,name,jp_va,info.title,region,info.native,info.constellation,birthday,release,
 10000059,Shikanoin Heizou,Yuichi Iguchi,Analytical Harmony,INAZUMA,Tenryou Commission,Cervus Minor,Jul 24,2022-07-12,4,CATALYST,ANEMO,10657.4169,225.141,683.8866,ANEMO_DMG_BONUS,40.0
 10000060,Yelan,Aya Endo,Valley Orchid,LIYUE,Yanshang Teahouse,Umbrabilis Orchis,Apr 20,2022-05-30,5,BOW,HYDRO,14450.1749,243.9619,547.9793,CRIT_RATE,70.0
 10000061,Kirara,Sayumi Suzushiro,Cat Upon the Eaves,INAZUMA,Komaniya Express,Arcella,Jan 22,2023-05-22,4,SWORD,DENDRO,12179.9047,223.0171,546.0172,HP,60.0
-10000062,Aloy,Ayahi Takagaki,Savior From Another World,RANGER,Wandering Heroine,Nora Fortis,Apr 4,2021-08-31,5,BOW,CRYO,10898.8605,233.9165,676.3278,CRYO_DMG_BONUS,40.0
+10000062,Aloy,Aya Uchigaki,Savior From Another World,RANGER,Wandering Heroine,Nora Fortis,Apr 4,2021-08-31,5,BOW,CRYO,10898.8605,233.9165,676.3278,CRYO_DMG_BONUS,40.0
 10000063,Shenhe,Ayako Kawasumi,Lonesome Transcendence,LIYUE,Cloud Retainer's Abode,Crista Doloris,Mar 10,2022-01-04,5,POLE,CRYO,12992.9114,303.7565,830.0387,ATTACK,80.0
 10000064,Yun Jin,Kotori Koiwai & Yang Yang,Stage Lucida,LIYUE,Yun-Han Opera Troupe,Opera Grandis,May 21,2022-01-04,4,POLE,GEO,10657.4169,191.1575,734.3932,ENERGY_RECHARGE,60.0
 10000065,Kuki Shinobu,Kaori Mizuhashi,Mender of Tribulations,INAZUMA,Arataki Gang,Tribulatio Demptio,Jul 27,2022-06-21,4,SWORD,ELECTRO,12288.6544,212.3972,750.7737,HP,60.0
 10000066,Kamisato Ayato,Akira Ishida,Pillar of Fortitude,INAZUMA,Yashiro Commission,Cypressus Custos,Mar 26,2022-03-29,5,SWORD,HYDRO,13715.4201,298.973,768.5544,CRITI_DMG,80.0
 10000067,Collei,Ryoko Maekawa,Sprout of Rebirth,SUMERU,Gandharva Ville,Leptailurus Cervarius,May 8,2022-08-23,4,BOW,DENDRO,9787.4236,199.6534,600.6189,ATTACK,60.0
-10000068,Dori,Tomoko Kaneda,Treasure of Dream Garden,SUMERU,The Palace of Alcazarzaray,Magicae Lucerna,Dec 21,2022-09-09,4,CLAYMORE,ELECTRO,12397.4036,223.0171,723.4728,HP,80.0
+10000068,Dori,Tomoko Kanada,Treasure of Dream Garden,SUMERU,The Palace of Alcazarzaray,Magicae Lucerna,Dec 21,2022-09-09,4,CLAYMORE,ELECTRO,12397.4036,223.0171,723.4728,HP,80.0
 10000069,Tighnari,Sanae Kobayashi,Verdant Strider,SUMERU,Gandharva Ville,Vulpes Zerda,Dec 29,2022-08-23,5,BOW,DENDRO,10849.8771,267.8798,630.2146,DENDRO_DMG_BONUS,40.0
 10000070,Nilou,Hisako Kanemoto,Dance of Lotuslight,SUMERU,Zubayr Theater,Lotos Somno,Dec 3,2022-10-14,5,SWORD,HYDRO,15184.9293,229.6112,728.5895,HP,70.0
-10000071,Cyno,Jiyu Uchino,Judicator of Secrets,SUMERU,Temple of Silence,Lupus Aureus,Jun 23,2022-09-26,5,POLE,ELECTRO,12490.829,318.1072,859.2438,CRITI_DMG,80.0
+10000071,Cyno,Jirō Irino,Judicator of Secrets,SUMERU,Temple of Silence,Lupus Aureus,Jun 23,2022-09-26,5,POLE,ELECTRO,12490.829,318.1072,859.2438,CRITI_DMG,80.0
 10000072,Candace,Ryōka Yuzuki,Golden Vow,SUMERU,Aaru Village,Sagitta Scutum,May 3,2022-09-26,4,POLE,HYDRO,10874.9149,212.3972,682.5215,HP,60.0
 10000073,Nahida,Yukari Tamura,Physic of Purity,SUMERU,Sumeru City,Sapientia Oromasdis,Oct 27,2022-10-31,5,CATALYST,DENDRO,10360.0405,298.973,630.2146,ELEMENTAL_MASTERY,50.0
 10000074,Layla,Miyu Tomita,Fantastical Evening Star,SUMERU,Rtawahist,Luscinia,Dec 19,2022-11-18,4,SWORD,CRYO,11092.4132,216.6451,655.2207,HP,40.0
@@ -65,7 +65,7 @@ id,name,jp_va,info.title,region,info.native,info.constellation,birthday,release,
 10000079,Dehya,Ayaka Fukuhara,Flame-Mane,SUMERU,The Eremites,Mantichora,Apr 7,2023-02-27,5,CLAYMORE,PYRO,15674.7657,265.488,627.9089,HP,70.0
 10000080,Mika,Yufuko Sanpei,Coordinates of Clear Frost,MONDSTADT,Knights of Favonius,Palumbus,Aug 11,2023-03-21,4,POLE,CRYO,12506.1524,223.0171,713.235,HP,70.0
 10000081,Kaveh,Yuma Uchida,Empyrean Reflection,SUMERU,Independent Design Studio,Paradisaea,Jul 9,2023-05-02,4,CLAYMORE,DENDRO,11962.4065,233.6369,750.7737,ELEMENTAL_MASTERY,80.0
-10000082,Baizhu,Koji Yusa & Yui Shōji,Beyond Mortality,LIYUE,Bubu Pharmacy,Lagenaria,Apr 25,2023-05-02,5,CATALYST,DENDRO,13348.0428,192.5386,499.5603,HP,80.0
+10000082,Baizhu,Koji Yusa & Yui Shoji,Beyond Mortality,LIYUE,Bubu Pharmacy,Lagenaria,Apr 25,2023-05-02,5,CATALYST,DENDRO,13348.0428,192.5386,499.5603,HP,80.0
 10000083,Lynette,Yu Shinohara,Elegance in the Shadows,FONTAINE,Hotel Bouffes d'ete,Felis Alba,Feb 2,2023-08-14,4,SWORD,ANEMO,12397.4036,231.5129,711.87,ANEMO_DMG_BONUS,70.0
 10000084,Lyney,Hiro Shimono,Spectacle of Phantasmagoria,FONTAINE,Hotel Bouffes d'ete,Felis Fuscus,Feb 2,2023-08-14,5,BOW,PYRO,11021.3196,318.1072,537.9881,CRIT_RATE,60.0
 10000085,Freminet,Shunichi Toki,Yearning for Unseen Depths,FONTAINE,Hotel Bouffes d'ete,Automaton,Sep 24,2023-09-05,4,CLAYMORE,CRYO,12071.1554,254.8766,708.4573,ATTACK,60.0
@@ -85,8 +85,8 @@ id,name,jp_va,info.title,region,info.native,info.constellation,birthday,release,
 10000099,Emilie,Yōko Hikasa,A Thousand Scents Traced,FONTAINE,Court of Fontaine,Pomum de Ambra,Sep 22,2024-08-06,5,POLE,DENDRO,13568.4697,334.8497,730.1267,CRITI_DMG,50.0
 10000100,Kachina,Yurika Kubo,Mottled Gold Yet Unsmelted,NATLAN,Nanatzcayan,Ochotona Princeps,Apr 22,2024-08-26,4,POLE,GEO,11799.2822,216.6451,792.4075,GEO_DMG_BONUS,70.0
 10000101,Kinich,Noriaki Sugiyama & Junko Takeuchi,Turnfire Hunt,NATLAN,Huitztlan,Chimaera Alebriius,Nov 11,2024-09-17,5,CLAYMORE,DENDRO,12858.2067,332.458,801.6022,CRITI_DMG,70.0
-10000102,Mualani,Nao Higashiyama,Splish-Splash Wavechaser,NATLAN,Meztli,Phoca Neomonachus,Aug 3,2024-08-26,5,CATALYST,HYDRO,15184.9293,181.7756,570.2673,CRIT_RATE,60.0
-10000103,Xilonen,Fairouz Ai,Ardent Flames Forge the Soul,NATLAN,Nanatzcayan,Panthera Ocelota,Mar 13,2024-10-07,5,SWORD,GEO,12405.1072,275.0551,929.9508,DEFENSE,60.0
+10000102,Mualani,Nao Toyama,Splish-Splash Wavechaser,NATLAN,Meztli,Phoca Neomonachus,Aug 3,2024-08-26,5,CATALYST,HYDRO,15184.9293,181.7756,570.2673,CRIT_RATE,60.0
+10000103,Xilonen,Fairuz Ai,Ardent Flames Forge the Soul,NATLAN,Nanatzcayan,Panthera Ocelota,Mar 13,2024-10-07,5,SWORD,GEO,12405.1072,275.0551,929.9508,DEFENSE,60.0
 10000104,Chasca,Yuko Kaida,Skyborne Arbiter,NATLAN,Tlalocan,Vultur Gryphus,Dec 10,2024-11-18,5,BOW,ANEMO,9796.7288,346.8087,614.8435,CRIT_RATE,60.0
 10000105,Ororon,Takahiro Kondo,Shadow of the Night-Wind,NATLAN,Mictlan,Vampyrum Spectrum,Oct 14,2024-11-18,4,BOW,ELECTRO,9243.6775,244.2568,586.9685,ATTACK,60.0
 10000106,Mavuika,Mikako Komatsu,Night-Igniting Flame,NATLAN,Huitztlan,Sol Invictus,Aug 28,2024-12-30,5,CLAYMORE,PYRO,12552.0586,358.7676,791.611,CRITI_DMG,
@@ -103,11 +103,11 @@ id,name,jp_va,info.title,region,info.native,info.constellation,birthday,release,
 10000117,Manekin,Free!,,MAINACTOR,——,——,None 0,2025-10-20,5,SWORD,NONE,10874.9149,212.3972,682.5215,ATTACK,60.0
 10000118,Manekina,Free!,,MAINACTOR,——,——,None 0,2025-10-20,5,SWORD,NONE,10874.9149,212.3972,682.5215,ATTACK,60.0
 10000119,Lauma,Noriko Kuwashima,Evermoon's Sacrament Song,NODKRAI,Frostmoon Scions,Cerva Nivea,Mar 1,2025-09-08,5,CATALYST,DENDRO,10653.9424,254.9642,668.6423,ELEMENTAL_MASTERY,60.0
-10000120,Flins,Yuichi Nakamura,"Shadowy Lights, Stranger Wights",NODKRAI,Lightkeepers,Laterna Vigilis,Oct 31,2025-09-30,5,POLE,ELECTRO,12490.829,351.5922,808.5192,CRITI_DMG,80.0
+10000120,Flins,Yūichi Nakamura,"Shadowy Lights, Stranger Wights",NODKRAI,Lightkeepers,Laterna Vigilis,Oct 31,2025-09-30,5,POLE,ELECTRO,12490.829,351.5922,808.5192,CRITI_DMG,80.0
 10000121,Aino,Natsumi Takamori,Clinky-Clank Gadgets-A-Gogo,NODKRAI,Clink-Clank Krumkake Craftshop,Cistellula Mira,Sep 21,2025-09-08,4,CLAYMORE,HYDRO,11201.1621,242.1328,607.4442,ELEMENTAL_MASTERY,50.0
 10000122,Nefer,Nana Mizuki,Secret Beneath the Sands,NODKRAI,Curatorium of Secrets,Ludus Latrunculorum,May 9,2025-10-20,5,CATALYST,DENDRO,12703.9082,344.4169,799.2965,CRITI_DMG,60.0
 10000123,Durin,Chiaki Kobayashi,"""The Undying Fire""",MONDSTADT,Hexenzirkel,Draco Rubedo,Mar 14,2025-12-01,5,SWORD,PYRO,12429.5994,346.8087,822.3532,CRITI_DMG,70.0
-10000124,Jahoda,Konosuke Inagaki,Windthreading Shadow,NODKRAI,Curatorium of Secrets,Fragum,Jan 5,2025-12-01,4,BOW,ANEMO,9646.0495,223.0171,580.1433,HEAL_BONUS,70.0
+10000124,Jahoda,Yoshimi Inagaki,Windthreading Shadow,NODKRAI,Curatorium of Secrets,Fragum,Jan 5,2025-12-01,4,BOW,ANEMO,9646.0495,223.0171,580.1433,HEAL_BONUS,70.0
 10000125,Columbina,Lynn,Welkin Moon's Homecoming,NODKRAI,Silvermoon Hall,Columbina Hyposelenia,Jan 14,2026-01-12,5,CATALYST,HYDRO,14695.0932,95.6714,514.9314,CRIT_RATE,60.0
 10000126,Zibai,Misato Fukuen,White Horse's Fleeting Spring,NODKRAI_ZIBAI,Liyue Harbor,Equa Alba,May 15,2026-02-03,5,SWORD,GEO,12919.436,224.8277,956.8502,CRITI_DMG,60.0
 10000127,Illuga,Shuichiro Umeda,Nightmare's Burning Heart,NODKRAI,Lightkeepers,Oriolus,Dec 23,2026-02-03,4,POLE,GEO,11962.4065,191.1575,813.5657,ELEMENTAL_MASTERY,60.0
