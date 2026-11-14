@@ -207,4 +207,7 @@ marimo/_lsp/
 __marimo__/
 
 # Other
-data/
+# Data: ignore raw JSON, track cleaned CSVs
+data/**/raw/
+!data/**/cleaned/
+!data/**/cleaned/*.csv

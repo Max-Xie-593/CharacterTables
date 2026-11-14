@@ -1,0 +1,63 @@
+id,name,code_name,info.full_name,faction.name,info.birthday,gender,rarity,attack_type.name,specialty.name,element.name,atkMax,hpMax,defMax,ascension_stat_1,ascension_stat_2,assist_type,team_condition_1,team_condition_2,team_condition_3
+1011,Anby,Anby,Anby Demara,Cunning Hares,FEB 20,F,A,Slash,Stun,Electric,583.957,7500.7134,612.6038,Impact,Base ATK,Defensive Assist,Attribute,Faction,
+1021,Nekomata,Nekomata,Nekomiya Mana,Cunning Hares,JUL 30,F,S,Slash,Attack,Physical,835.5958,7560.1902,587.5794,CRIT Rate,Base ATK,Defensive Assist,Support Character,Attribute,Faction
+1031,Nicole,Nicole,Nicole Demara,Cunning Hares,NOV 11,F,A,Strike,Support,Ether,574.1691,8145.8433,622.6159,Base Energy Regen,Base ATK,Defensive Assist,Attribute,Faction,
+1041,Soldier 11,Soldier 11,Soldier 11,New Eridu Defense Force,MAR 21,F,S,Slash,Attack,Fire,813.5686,7673.7042,612.6038,CRIT Rate,Base ATK,Defensive Assist,Attribute,Faction,
+1051,Yidhari,Yidhari,Yidhari Murphy,Spook Shack,MAR 19,F,S,Strike,Rupture,Ice,784.9099,8497.1437,448.4451,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Support Character,
+1061,Corin,Corin,Corin Wickes,Victoria Housekeeping Co.,JUN 2,F,A,Slash,Attack,Physical,732.1414,6976.9443,604.5976,CRIT DMG,Base ATK,Defensive Assist,Attribute,Faction,
+1071,Caesar,Caesar,Caesar King,Sons of Calydon,MAR 16,F,S,Slash,Defense,Physical,636.6899,9526.2299,753.862,Impact,Base ATK,Defensive Assist,Defensive Assist,Faction,
+1081,Billy,Billy,Billy Kid,Cunning Hares,NOV 25,M,A,Pierce,Attack,Physical,712.2765,6907.2636,606.5977,CRIT Rate,Base ATK,Evasive Assist,Attribute,Faction,
+1091,Miyabi,Miyabi,Hoshimi Miyabi,Hollow Special Operations Section 6,JUN 19,F,S,Slash,Anomaly,Ice,805.6952,7673.7042,606.5977,Anomaly Proficiency,Base ATK,Defensive Assist,Support Character,Anomaly Character,Faction
+1101,Koleda,Koleda,Koleda Belobog,Belobog Heavy Industries,AUG 10,F,S,Strike,Stun,Fire,660.8413,8127.3088,594.5855,Impact,Base ATK,Defensive Assist,Rupture Character,Armorer Character,Attribute
+1111,Anton,Anton,Anton Ivanov,Belobog Heavy Industries,MAY 2,M,A,Pierce,Attack,Electric,716.6483,7219.0996,622.6159,CRIT Rate,Base ATK,Defensive Assist,Attribute,Faction,
+1121,Ben,Ben,Ben Bigger,Belobog Heavy Industries,DEC 23,M,A,Strike,Defense,Fire,578.0866,8577.5504,724.0351,Base Energy Regen,Base ATK,Defensive Assist,Attribute,Faction,
+1131,Soukaku,Soukaku,Soukaku,Hollow Special Operations Section 6,JAN 23,F,A,Slash,Support,Ice,590.8333,8025.9663,597.5915,Base Energy Regen,Base ATK,Defensive Assist,Attribute,Faction,
+1141,Lycaon,Lycaon,Von Lycaon,Victoria Housekeeping Co.,OCT 4,M,S,Strike,Stun,Ice,653.5933,8416.2915,606.5977,Impact,Base ATK,Defensive Assist,Anomaly Character,Attribute,Faction
+1151,Lucy,Lucy,Luciana de Montefio,Sons of Calydon,AUG 14,F,A,Strike,Support,Fire,583.957,8025.9663,612.6038,Base Energy Regen,Base ATK,Defensive Assist,Attribute,Faction,Rupture Character
+1161,Lighter,Lighter,Lighter,Sons of Calydon,DEC 27,M,S,Strike,Stun,Fire,722.9569,8253.2915,612.6038,Impact,Base ATK,Defensive Assist,Attack Character,Faction,
+1171,Burnice,Burnice,Burnice White,Sons of Calydon,MAY 23,F,S,Pierce,Anomaly,Fire,788.4528,7368.1929,600.5916,Base Energy Regen,Base ATK,Defensive Assist,Anomaly Character,Faction,
+1181,Grace,Grace,Grace Howard,Belobog Heavy Industries,APR 14,F,S,Pierce,Anomaly,Electric,750.9679,7482.7069,600.5916,Anomaly Mastery,Base ATK,Evasive Assist,Attribute,Faction,Anomaly Character
+1191,Ellen,Ellen,Ellen Joe,Victoria Housekeeping Co.,JAN 4,F,S,Slash,Attack,Ice,863.2102,7673.7042,606.5977,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Attribute,Faction
+1201,Harumasa,Harumasa,Asaba Harumasa,Hollow Special Operations Section 6,JUL 19,M,S,Pierce,Attack,Electric,840.593,7405.6956,600.5916,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Anomaly Character,
+1211,Rina,Rina,Alexandrina Sebastiane,Victoria Housekeeping Co.,SEP 23,F,S,Strike,Support,Electric,642.1859,8609.2122,600.5916,PEN Ratio,Base ATK,Evasive Assist,Attribute,Faction,
+1221,Yanagi,Yanagi,Tsukishiro Yanagi,Hollow Special Operations Section 6,SEP 21,F,S,Slash,Anomaly,Electric,797.574,7788.6961,612.6038,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Attribute,
+1241,Zhu Yuan,Zhu Yuan,Zhu Yuan,New Eridu Public Security,SEP 1,F,S,Pierce,Attack,Ether,844.3011,7482.7069,600.5916,CRIT DMG,Base ATK,Evasive Assist,Support Character,Faction,
+1251,Qingyi,QingYi,Qingyi,New Eridu Public Security,JAN 1,F,S,Strike,Stun,Electric,683.2048,8250.5871,612.6038,Impact,Base ATK,Defensive Assist,Attack Character,Faction,
+1261,Jane,Jane,Jane Doe,New Eridu Public Security,FEB 16,F,S,Slash,Anomaly,Physical,805.6952,7788.6961,606.5977,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Faction,
+1271,Seth,Seth,Seth Lowell,New Eridu Public Security,APR 8,M,A,Slash,Defense,Electric,568.2987,8701.3125,746.1361,Base Energy Regen,Base ATK,Defensive Assist,Attribute,Faction,
+1281,Piper,Piper,Piper,Sons of Calydon,OCT 21,F,A,Slash,Anomaly,Physical,683.4172,6976.9443,612.6038,Base Energy Regen,Base ATK,Defensive Assist,Anomaly Character,Attribute,Faction
+1291,Hugo,Hugo,Hugo Vlad,Mockingbird,AUG 20,M,S,Slash,Attack,Ice,844.3011,7940.7128,616.6098,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Attribute,
+1301,Orphie & Magus,Orphie & Magus,Orphie Magnusson & Magus,New Eridu Defense Force,NOV 3,F,S,Pierce,Attack,Fire,854.7586,7788.6961,612.6038,Base Energy Regen,Base ATK,Defensive Assist,Stun Character,Support Character,
+1311,Astra Yao,Astra,Astra Yao,Stars of Lyra,JAN 31,F,S,Strike,Support,Ether,640.7699,8609.2122,600.5916,Base Energy Regen,Base ATK,Evasive Assist,Attack Character,Anomaly Character,Rupture Character
+1321,Evelyn,Evelyn,Evelyn Chevalier,Stars of Lyra,OCT 7,F,S,Slash,Attack,Fire,854.7586,7788.6961,612.6038,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Support Character,
+1331,Vivian,Vivian,Vivian Banshee,Mockingbird,APR 10,F,S,Slash,Anomaly,Ether,805.6952,7673.7042,606.5977,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Attribute,
+1341,Zhao,Zhao,Zhao,Krampus Compliance Authority,OCT 14,F,S,Slash,Defense,Ice,690.6593,9117.4144,701.8928,HP,Base ATK,Defensive Assist,Attack Character,Anomaly Character,Support Character
+1351,Pulchra,Pulchra,Pulchra Fellini,Sons of Calydon,JUN 19,F,A,Slash,Stun,Physical,590.8333,7612.7878,606.5977,Impact,Base ATK,Evasive Assist,Attack Character,Rupture Character,Faction
+1361,Trigger,Trigger,Trigger,New Eridu Defense Force,APR 21,F,S,Pierce,Stun,Electric,675.7503,7923.1783,600.5916,Impact,Base ATK,Defensive Assist,Attack Character,Attribute,
+1371,Yixuan,YiXuan,Yixuan,Yunkui Summit,DEC 3,F,S,Strike,Rupture,Ether,872.5748,7953.8621,441.1145,CRIT Rate,HP,Defensive Assist,Stun Character,Support Character,Defense Character
+1381,Soldier 0 - Anby,Soldier 0 - Anby,,New Eridu Defense Force,,F,S,Slash,Attack,Electric,854.7586,7673.7042,612.6038,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Support Character,
+1391,Ju Fufu,Ju Fufu,Ju Fufu,Yunkui Summit,JAN 6,F,S,Strike,Stun,Fire,690.6593,8250.5871,597.5915,CRIT Rate,Base ATK,Defensive Assist,Attack Character,Rupture Character,
+1401,Alice,Alice,Alice Thymefield,Spook Shack,AUG 30,F,S,Slash,Anomaly,Physical,805.6952,7673.7042,606.5977,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Support Character,
+1411,Yuzuha,Yuzuha,Ukinami Yuzuha,Spook Shack,NOV 2,F,S,Strike,Support,Physical,683.2048,8829.47,612.6038,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Faction,
+1421,Pan Yinhu,Yinhu,Pan Yinhu,Yunkui Summit,MAY 10,M,A,Strike,Defense,Physical,586.9158,8453.7942,712.9433,Base Energy Regen,Base ATK,Defensive Assist,Rupture Character,Faction,
+1431,Ye Shunguang,Ye Shunguang,Ye Shunguang,Yunkui Summit,JAN 20,F,S,Slash,Attack,Physical,863.2102,7673.7042,606.5977,CRIT Rate,Base ATK,Defensive Assist,Support Character,Defense Character,
+1441,Manato,Manato,Komano Manato,Spook Shack,JAN 5,M,A,Slash,Rupture,Fire,680.2106,7724.8563,443.56,HP,Base ATK,Defensive Assist,Support Character,Stun Character,
+1451,Lucia,Lucia,Lucia Elowen,Spook Shack,MAR 17,F,S,Strike,Support,Ether,683.2048,8477.1696,594.5855,Base Energy Regen,Base ATK,Defensive Assist,Rupture Character,Stun Character,
+1461,Seed,Seed,Seed,New Eridu Defense Force,NOV 22,F,S,Slash,Attack,Electric,854.7586,7673.7042,612.6038,CRIT DMG,Base ATK,Defensive Assist,Attack Character,,
+1471,Banyue,Banyue,Banyue,Krampus Compliance Authority,JUL 24,M,S,Strike,Rupture,Fire,784.9099,8497.1437,445.9996,CRIT Rate,Base ATK,Defensive Assist,Support Character,Stun Character,
+1481,Dialyn,Dialyn,Dialyn,Krampus Compliance Authority,MAY 28,F,S,Slash,Stun,Physical,683.2048,8250.5871,612.6038,CRIT Rate,Base ATK,Defensive Assist,Attack Character,Rupture Character,
+1491,Sunna,Sunna,Sunna,Angels of Delusion,JUL 18,F,S,Strike,Support,Physical,675.7503,8477.1696,600.5916,ATK,Base ATK,Defensive Assist,Attack Character,Faction,
+1501,Aria,Aria,Aria,Angels of Delusion,JUN 7,F,S,Strike,Anomaly,Ether,788.4528,7749.7096,619.6099,Anomaly Mastery,Base ATK,Defensive Assist,Stun Character,Support Character,Anomaly Character
+1511,Nangong Yu,Nangong Yu,Nangong Yu,Angels of Delusion,SEP 29,F,S,Strike,Stun,Ether,671.5024,8373.8654,622.6159,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Faction,
+1521,Cissia,Cissia,Cissia,New Eridu Public Security,JAN 10,F,S,Slash,Attack,Electric,863.2102,7673.7042,606.5977,Base Energy Regen,Base ATK,Defensive Assist,Stun Character,Attribute,
+1531,Starlight - Billy,Starlight - Billy,,Cunning Hares,,M,S,Slash,Rupture,Physical,784.9099,8497.1437,445.9996,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Defense Character,Support Character
+1541,Promeia,Promeia,Promeia,Krampus Compliance Authority,DEC 23,F,S,Slash,Anomaly,Ice,797.574,7788.6961,612.6038,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Support Character,
+1551,Pyrois,Pyrois,,Phaethon,,M,S,Slash,Attack,Ether,849.0505,7673.7042,612.6038,CRIT Rate,Base ATK,Defensive Assist,Stun Character,Support Character,
+1561,Velina,Velina,Velina Airgid,Roscaelifer,SEP 22,F,S,Slash,Anomaly,Wind,797.574,7788.6961,612.6038,Anomaly Proficiency,Base ATK,Defensive Assist,Anomaly Character,Attribute,
+1571,Norma,Norma,Norma Hollowell,Roscaelifer,JUL 26,F,S,Strike,Stun,Fire,687.4114,7799.9059,582.5733,CRIT Rate,Base ATK,Defensive Assist,Attack Character,Rupture Character,Faction
+1581,Remielle,Remielle,Remielle Dan,Covenant of Dayat,MAR 14,F,S,Slash,Anomaly,Lumiflux,748.4626,7482.7069,600.5916,Anomaly Proficiency,Base ATK,Defensive Assist,Anomaly Character,Faction,
+1591,Sigrid,Sigrid,Sigrid de L'Azur,Roscaelifer,APR 23,F,S,Pierce,Attack,Ice,863.2102,7788.6961,606.5977,CRIT Rate,Base ATK,Defensive Assist,Support Character,Stun Character,
+1611,Claret,Claret,Claret Flint,Roscaelifer,JUL 23,F,S,Slash,Armorer,Electric,626.0261,5651.5949,441.1145,CRIT Rate,,Defensive Assist,Stun Character,Armorer Character,Attribute
+1621,Roxy,Roxy,Roxy Ifrita Pryce,Roscaelifer,DEC 29,F,S,Strike,Stun,Wind,666.2958,8418.1437,641.6281,CRIT Rate,Base ATK,Defensive Assist,Attack Character,Rupture Character,Armorer Character
+1631,Severian,Severian,Severian Lowell,New Eridu Public Security,DEC 31,M,S,Slash,Attack,Wind,858.5021,7826.1988,606.5977,CRIT DMG,Base ATK,Defensive Assist,Support Character,Stun Character,Faction
+1641,Phoenix,Phoenix,Phoenix Reffaella,Krampus Compliance Authority,OCT 31,F,S,Slash,Anomaly,Fire,797.574,7673.7042,612.6038,Anomaly Mastery,Base ATK,Defensive Assist,Anomaly Character,Faction,

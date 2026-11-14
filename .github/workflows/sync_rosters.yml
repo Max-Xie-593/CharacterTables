@@ -1,0 +1,63 @@
+name: Scheduled Character Roster Sync
+
+on:
+  schedule:
+    # Runs every Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+    inputs:
+      game:
+        description: 'Game to sync'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - gi
+          - zzz
+          - fgo
+          - umamusu
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install pipenv
+        run: pip install pipenv
+
+      - name: Install dependencies
+        run: pipenv install --deploy
+
+      - name: Sync character data
+        run: |
+          TARGET="${{ github.event.inputs.game || 'all' }}"
+          if [ "$TARGET" = "all" ]; then
+            for g in gi zzz fgo umamusu; do
+              echo "=== Syncing $g ==="
+              pipenv run python driver.py sync "$g" || echo "::warning::Failed to sync $g"
+            done
+          else
+            echo "=== Syncing $TARGET ==="
+            pipenv run python driver.py sync "$TARGET"
+          fi
+
+      - name: Commit and push updated tables
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(data): auto-update character tables [skip ci]"
+          file_pattern: "data/**/cleaned/*.csv"

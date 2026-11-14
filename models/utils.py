@@ -6,7 +6,10 @@ from loguru import logger
 from tqdm import tqdm
 import json, os, asyncio
 
-from .gi.constants import GI_CHARACTER_CURVE
+from .gi.constants import GI_CHARACTER_CURVE, GI_CHARACTER_INCLUDE_FIELDS
+from .zzz.constants import ZZZ_AGENT_INCLUDE_FIELDS
+from .fgo.constants import FGO_SERVANT_INCLUDE_FIELDS
+from .umamusume.constants import UMA_CHARACTER_INCLUDE_FIELDS
 from .general.constants import (
     CHARACTERS_JSON, 
     CHARACTERS_CLEANED, 
@@ -21,10 +24,23 @@ from .general.enums import (
 from .client import get_client_api, API
 from .builder import clean_up_character_info
 
+# ---------------------------------------------------------------------------
+# Maps each game to its model_dump include dict for in-flight field pruning.
+# None means no pruning (full model dump) — used as a safe fallback if a
+# new game is added before its include dict is defined.
+# ---------------------------------------------------------------------------
+_CHARACTER_INCLUDE_FIELDS: Mapping[GameInitials, Mapping | None] = {
+    GameInitials.GI:      GI_CHARACTER_INCLUDE_FIELDS,
+    GameInitials.ZZZ:     ZZZ_AGENT_INCLUDE_FIELDS,
+    GameInitials.FGO:     FGO_SERVANT_INCLUDE_FIELDS,
+    GameInitials.UMAMUSU: UMA_CHARACTER_INCLUDE_FIELDS,
+}
+
 __all__ = (
     "add_parser_info",
     "print_character_data",
     "convert_character_data",
+    "sync_character_data",
 )
 
 def check_data_directory() -> None:
@@ -197,6 +213,22 @@ def print_character_data(args: Namespace):
         debug=getattr(args,"debug",False)
     )
 
+def sync_character_data(args: Namespace) -> None:
+    """default function for the sync subparser: fetch then convert for one or all games.
+
+    Args:
+        args (Namespace): arguments parsed from the ArgumentParser
+    """
+    if not getattr(args, "all", False) and args.game is None:
+        raise ValueError("sync requires either a game argument or --all")
+
+    games = list(GameInitials) if getattr(args, "all", False) else [GameInitials(args.game)]
+    debug = getattr(args, "debug", False)
+
+    for game in games:
+        extract_character_data(get_client_api(game), game, debug=debug)
+        clean_json_to_csv(game)
+
 def extract_character_data(
         client: API,
         game: GameInitials,
@@ -273,6 +305,8 @@ async def extract_character(
         level="DEBUG" if debug else "INFO"
     )
 
+    include = _CHARACTER_INCLUDE_FIELDS.get(game)
+
     async with client as api:
         write_json_to_file(
             [
@@ -281,7 +315,7 @@ async def extract_character(
                         await api.fetch_character_detail(
                             character.id, use_cache=False
                         )
-                    ).model_dump_json(ensure_ascii=True)
+                    ).model_dump_json(include=include, ensure_ascii=True)
                 )
                 for character in tqdm(
                     await api.fetch_characters(use_cache=False),

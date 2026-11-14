@@ -42,9 +42,28 @@ This project leverages a robust set of Python libraries to handle API interactio
 
 ## Usage
 
-The tool is accessed via the command line using `driver.py`. It supports two main modes: `characters` (for fetching data) and `pandas` (for converting data).
+The tool is accessed via the command line using `driver.py`. It supports three modes: `sync` (fetch and convert in one step), `characters` (fetch raw JSON), and `pandas` (convert JSON to CSV).
 
-### 1. Fetch Character Data
+### 1. Sync Character Data (Recommended)
+Fetch raw character data and immediately convert it to a cleaned CSV table in one step.
+
+**Syntax:**
+```bash
+python driver.py sync <game>
+# or sync all games in sequence:
+python driver.py sync --all
+```
+
+**Examples:**
+```bash
+# Sync Genshin Impact
+python driver.py sync gi
+
+# Sync all games
+python driver.py sync --all
+```
+
+### 2. Fetch Character Data (Raw Only)
 Extract character information from a specific game into a JSON file.
 
 **Syntax:**
@@ -55,20 +74,20 @@ python driver.py characters <game>
 **Examples:**
 ```bash
 # Fetch Genshin Impact characters
-python driver.py characters GI
+python driver.py characters gi
 
 # Fetch Zenless Zone Zero characters
-python driver.py characters ZZZ
+python driver.py characters zzz
 
 # Fetch Fate/Grand Order characters
-python driver.py characters FGO
+python driver.py characters fgo
 
 # Fetch Uma Musume characters
-python driver.py characters UMAMUSU
+python driver.py characters umamusu
 ```
 
-### 2. Convert to CSV
-Convert the fetched JSON data into a clean CSV format for spreadsheet analysis.
+### 3. Convert to CSV
+Convert previously fetched JSON data into a clean CSV format for spreadsheet analysis.
 
 **Syntax:**
 ```bash
@@ -78,13 +97,16 @@ python driver.py pandas <game>
 **Examples:**
 ```bash
 # Convert Genshin Impact data to CSV
-python driver.py pandas GI
+python driver.py pandas gi
 
 # Convert Zenless Zone Zero data to CSV
-python driver.py pandas ZZZ
+python driver.py pandas zzz
+
+# Convert Fate/Grand Order data to CSV
+python driver.py pandas fgo
 
 # Convert Uma Musume data to CSV
-python driver.py pandas UMAMUSU
+python driver.py pandas umamusu
 ```
 
 ### Help
@@ -92,5 +114,9 @@ To see all available options and help messages:
 ```bash
 python driver.py --help
 # or for specific commands
-python driver.py characters --help
+python driver.py sync --help
 ```
+
+## Automation
+
+Character tables are automatically kept up to date via a scheduled [GitHub Actions workflow](.github/workflows/sync_rosters.yml) that runs weekly and commits updated CSVs directly to the repository. The workflow can also be triggered manually on demand from the Actions tab.

@@ -5,6 +5,80 @@ from fgo_api_types.gameenums import NiceFuncTargetType
 from models.general.enums import CharacterTableColumnNames
 from .enums import FGOColumnNames
 
+# ---------------------------------------------------------------------------
+# In-flight field pruning: only the fields consumed by fgo/pandas_utils.py
+# are retained when model_dump_json(include=...) is called in extract_character.
+#
+# Layer 1 enums (no dots in value) are used as keys where applicable.
+# "noblePhantasms.__all__" must be a dict (not a set) because it mixes
+# plain field names with a nested "functions" include spec.
+# ---------------------------------------------------------------------------
+FGO_SERVANT_INCLUDE_FIELDS: Final[Mapping] = {
+    # Scalar top-level fields
+    CharacterTableColumnNames.ID:       True,   # "id"
+    CharacterTableColumnNames.NAME:     True,   # "name"
+    CharacterTableColumnNames.GENDER:   True,   # "gender"
+    CharacterTableColumnNames.RARITY:   True,   # "rarity"
+    CharacterTableColumnNames.COST:     True,   # "cost"
+    CharacterTableColumnNames.HPMAX:    True,   # "hpMax"  — matches FGO API field
+    CharacterTableColumnNames.ATKMAX:   True,   # "atkMax" — matches FGO API field
+    FGOColumnNames.COLLECTION_NUM:      True,   # "collectionNo"
+    FGOColumnNames.MAXLEVEL:            True,   # "lvMax"
+    FGOColumnNames.SERVANTCLASS:        True,   # "className"
+    FGOColumnNames.ATTRIBUTE:           True,   # "attribute"
+    FGOColumnNames.GROWTHCURVE:         True,   # "growthCurve"
+    FGOColumnNames.STARABSORPTION:      True,   # "starAbsorb"
+    FGOColumnNames.STARGENERATION:      True,   # "starGen"
+    FGOColumnNames.DEATHCHANCE:         True,   # "instantDeathChance"
+    FGOColumnNames.CARDS:               True,   # "cards"
+
+    # traits — keep only "name" per trait entry
+    FGOColumnNames.SERVANTTRAITS: {"__all__": {CharacterTableColumnNames.NAME}},
+
+    # cardDetails — keep only hitsDistribution per card slot (no enum for these sub-keys)
+    "cardDetails": {"__all__": {"hitsDistribution"}},
+
+    # skills — keep only the 3 function filter fields used by aggregate_functions
+    FGOColumnNames.SKILLS: {
+        "__all__": {
+            FGOColumnNames.FUNCTIONS: {
+                "__all__": {
+                    FGOColumnNames.FUNCTARGETTYPE,   # "funcTargetType"
+                    FGOColumnNames.FUNCTARGETTEAM,   # "funcTargetTeam"
+                    FGOColumnNames.FUNCPOPUPTEXT,    # "funcPopupText"
+                }
+            }
+        }
+    },
+
+    # noblePhantasms — card/rank/type/effectFlags + same 3 function fields.
+    # Must be a dict (not a set) so the "functions" nested spec can be included.
+    FGOColumnNames.NOBLEPHANTASMS: {
+        "__all__": {
+            FGOColumnNames.CARD:        True,   # "card"
+            FGOColumnNames.EFFECTFLAGS: True,   # "effectFlags"
+            # NPRANKS/"rank" and NPTYPES/"type" values happen to match raw API field names
+            FGOColumnNames.NPRANKS:     True,   # "rank"
+            FGOColumnNames.NPTYPES:     True,   # "type"
+            FGOColumnNames.FUNCTIONS: {
+                "__all__": {
+                    FGOColumnNames.FUNCTARGETTYPE,
+                    FGOColumnNames.FUNCTARGETTEAM,
+                    FGOColumnNames.FUNCPOPUPTEXT,
+                }
+            }
+        }
+    },
+
+    # profile — keep cv, illustrator, stats only (drops voices, comments, costume)
+    # Sub-keys only exist as dot-path enums (e.g. "profile.cv"); bare names have no enum.
+    "profile": {
+        "cv",           # FGOColumnNames.CHARACTERVOICE = "profile.cv" (dot-path only)
+        "illustrator",  # FGOColumnNames.ILLUSTRATOR     = "profile.illustrator"
+        "stats",        # keeps all stats sub-fields (strength/endurance/etc.)
+    },
+}
+
 SELF_TEXT: Final[str] = "Self" 
 SUPPORT_TEXT: Final[str] = "Support" 
 

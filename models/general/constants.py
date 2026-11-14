@@ -49,3 +49,36 @@ PANDAS_PARSER_INFO : Final[Mapping] = {
     ArgumentParserKwargs.DESCRIPTION: "subparser for extracting character json data to a csv file",
     ArgumentParserKwargs.HELP: "convert all character json data into an csv file.",
 }
+
+SYNC_PARSER_INFO: Final[Mapping] = {
+    ArgumentParserKwargs.NAME: "sync",
+    ArgumentParserKwargs.DESCRIPTION: "Fetch and convert character data for one or all games in a single step",
+    ArgumentParserKwargs.HELP: "fetch and convert character data in one step (combines 'characters' + 'pandas').",
+}
+
+SYNC_GAME_PARAM_INFO: Final[Sequence[Mapping]] = [
+    {
+        ArgumentParserKwargs.NAME: "game",
+        ArgumentParserKwargs.OTHER_PARAMS: {
+            ArgumentParserKwargs.TYPE: str,
+            ArgumentParserKwargs.CHOICES: GAME_CHOICES,
+            ArgumentParserKwargs.HELP: "game to sync character data for",
+            "nargs": "?",
+            "default": None,
+        },
+    },
+    {
+        ArgumentParserKwargs.NAME: ("--all",),
+        ArgumentParserKwargs.OTHER_PARAMS: {
+            ArgumentParserKwargs.ACTION: "store_true",
+            ArgumentParserKwargs.HELP: "sync all games in sequence",
+        },
+    },
+    {
+        ArgumentParserKwargs.NAME: ("-d", "--debug"),
+        ArgumentParserKwargs.OTHER_PARAMS: {
+            ArgumentParserKwargs.ACTION: "store_true",
+            ArgumentParserKwargs.HELP: "enable debug mode",
+        },
+    },
+]

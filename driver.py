@@ -1,5 +1,5 @@
 from argparse import ArgumentParser, RawTextHelpFormatter, RawDescriptionHelpFormatter, Namespace
-from collections.abc import Mapping, Generator, Callable
+from collections.abc import Mapping, Sequence, Generator, Callable
 from models import *
 
 def construct_main_parser() -> ArgumentParser:
@@ -17,7 +17,8 @@ def construct_main_parser() -> ArgumentParser:
                     Namespace
                 ],
                 None
-            ]
+            ],
+            Sequence | None,
         ],
         None,
         None
@@ -25,10 +26,11 @@ def construct_main_parser() -> ArgumentParser:
         """Generator to output tuples of information for creating subparsers
 
         Yields:
-            Generator[tuple[Mapping,Callable[[Namespace],None]],None,None]: Tuple containing a dict information regarding parser data and functions for the parser to run
+            Generator[tuple[Mapping,Callable[[Namespace],None],Sequence|None],None,None]: Tuple containing a dict information regarding parser data, functions for the parser to run, and optional param info override
         """
-        yield (CHARACTERS_PARSER_INFO, print_character_data)
-        yield (PANDAS_PARSER_INFO, convert_character_data)
+        yield (CHARACTERS_PARSER_INFO, print_character_data, None)
+        yield (PANDAS_PARSER_INFO, convert_character_data, None)
+        yield (SYNC_PARSER_INFO, sync_character_data, SYNC_GAME_PARAM_INFO)
 
     parser: ArgumentParser = ArgumentParser(
         prog="chardata",
@@ -39,7 +41,7 @@ def construct_main_parser() -> ArgumentParser:
     subparser = parser.add_subparsers()
     subparser.required = True
 
-    for newParser, default in retrieve_subparser_information():
+    for newParser, default, param_info in retrieve_subparser_information():
         moduleParser = subparser.add_parser(
             newParser[
                 ArgumentParserKwargs.NAME
@@ -54,7 +56,7 @@ def construct_main_parser() -> ArgumentParser:
         )
         add_parser_info(
             moduleParser,
-            GAME_PARAM_INFO,
+            param_info if param_info is not None else GAME_PARAM_INFO,
             { 
                 ArgumentParserKwargs.RUN: default 
             }
