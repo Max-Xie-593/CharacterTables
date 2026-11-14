@@ -11,6 +11,8 @@ hakushin-py = {git = "https://github.com/seriaati/hakushin-py.git"}
 atlasacademy-py = {git = "https://github.com/Max-Xie-593/FGOAtlasAcademyAPI.git"}
 ambr-py = "*"
 umamusume-api = {git = "https://github.com/Max-Xie-593/UmamusumeAPI.git"}
+tqdm = "*"
+loguru = "*"
 
 [dev-packages]
 
