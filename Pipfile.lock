@@ -1339,7 +1339,7 @@
         },
         "umamusume-api": {
             "git": "https://github.com/Max-Xie-593/UmamusumeAPI.git",
-            "ref": "5c5f6d2016b2865ec1dee7158cfeb3395cb50869"
+            "ref": "5a0a56bc94b3f183a2d9ddbcd3802e948baf5a59"
         },
         "url-normalize": {
             "hashes": [
