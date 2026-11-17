@@ -117,6 +117,21 @@ python driver.py --help
 python driver.py sync --help
 ```
 
+## Interactive Web Dashboard
+
+Explore, filter, and inspect character rosters interactively in your browser with the built-in Streamlit dashboard:
+
+```bash
+pipenv run streamlit run streamlit_app.py
+```
+
+Features:
+- **Interactive Multi-Game Explorer**: Switch between Genshin Impact, Zenless Zone Zero, Fate/Grand Order, and Uma Musume.
+- **Dynamic Filters**: Search by name/VA/illustrator, filter by rarity, element, class, weapon, and specific traits/skill tags.
+- **Visual Analytics**: Interactive Plotly scatter plots (Max ATK vs Max HP), element/class distributions, and trait frequency bar charts.
+- **Character Inspector**: Detailed profile card displaying combat stats, ascension bonuses, Noble Phantasm details, track aptitudes, and styled tag badges.
+- **Export Data**: Filter down to any custom roster subset and download as a CSV with one click.
+
 ## Automation
 
 Character tables are automatically kept up to date via a scheduled [GitHub Actions workflow](.github/workflows/sync_rosters.yml) that runs weekly and commits updated CSVs directly to the repository. The workflow can also be triggered manually on demand from the Actions tab.

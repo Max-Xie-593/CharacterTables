@@ -13,6 +13,8 @@ ambr-py = "*"
 tqdm = "*"
 loguru = "*"
 umamusume-api = {git = "https://github.com/Max-Xie-593/UmamusumeAPI.git"}
+streamlit = "*"
+plotly = "*"
 
 [dev-packages]
 
