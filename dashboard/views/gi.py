@@ -4,6 +4,7 @@ from dashboard.components.metrics import render_kpi_cards
 from dashboard.components.charts import plot_stat_scatter, plot_category_distribution
 from dashboard.components.inspector import render_character_inspector
 from dashboard.components.statistics import render_statistical_tab
+from dashboard.components.pygwalker_view import render_pygwalker_tab
 
 def render_gi_view(raw_df: pd.DataFrame) -> None:
     """Render the Genshin Impact character roster dashboard."""
@@ -52,9 +53,9 @@ def render_gi_view(raw_df: pd.DataFrame) -> None:
     # 1. KPI Metric Cards
     render_kpi_cards(df, total_label="Filtered Characters", rarity_col="rarity", atk_col="atkMax", hp_col="hpMax")
 
-    # Tabs for Data View vs Visual Analytics vs Statistics vs Inspector
-    tab_data, tab_charts, tab_stats, tab_inspector = st.tabs([
-        "📋 Data Table", "📊 Visual Analytics", "📈 Statistical Lab", "🔍 Character Inspector"
+    # Tabs for Data View vs Visual Analytics vs Statistics vs PyGWalker vs Inspector
+    tab_data, tab_charts, tab_stats, tab_pyg, tab_inspector = st.tabs([
+        "📋 Data Table", "📊 Visual Analytics", "📈 Statistical Lab", "🎨 PyGWalker Studio", "🔍 Character Inspector"
     ])
 
     with tab_data:
@@ -100,6 +101,9 @@ def render_gi_view(raw_df: pd.DataFrame) -> None:
 
     with tab_stats:
         render_statistical_tab(df, game="gi", name_col="display_name")
+
+    with tab_pyg:
+        render_pygwalker_tab(df, game="gi")
 
     with tab_inspector:
         render_character_inspector(df, game="gi", name_col="display_name")
